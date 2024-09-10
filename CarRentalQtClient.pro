@@ -11,6 +11,7 @@ CONFIG += c++17
 
 SOURCES += \
     ClientAPI/OnUserRouteRequests/registraterequest.cpp \
+    ClientAPI/OnUserRouteRequests/registrateuserreplyhandler.cpp \
     ClientAPI/baseapireplyhandler.cpp \
     ClientAPI/baseapirequest.cpp \
     main.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     ClientAPI/OnUserRouteRequests/registraterequest.h \
+    ClientAPI/OnUserRouteRequests/registrateuserreplyhandler.h \
     ClientAPI/baseapireplyhandler.h \
     ClientAPI/baseapirequest.h \
     mainwindow.h
@@ -29,3 +31,9 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    serverConfiguration.json
+
+RESOURCES += \
+    resources.qrc

@@ -6,4 +6,3 @@ BaseAPIReplyHandler::BaseAPIReplyHandler(QObject *parent)
 {
 
 }
-

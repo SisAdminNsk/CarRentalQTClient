@@ -16,8 +16,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-public slots:
-    void replyFinished(QNetworkReply* rep);
+
+private slots:
+    void onRegistrationError(const QString &message);
+    void onRegistrationSuccess(const QString &message);
 private:
     Ui::MainWindow *ui;
 };

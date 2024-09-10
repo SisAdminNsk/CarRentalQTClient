@@ -17,14 +17,19 @@ class BaseAPIRequest : public QObject
 public:
     explicit BaseAPIRequest(QObject *parent = nullptr);
     ~BaseAPIRequest();
+    void setupReplyHandler(BaseAPIReplyHandler *replyHandler);
+    virtual void sendRequest() = 0;
 private:
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    BaseAPIReplyHandler *replyHandler = nullptr;
+    void tryReadServerConfigurationFromJson();
+
 signals:
     void onNotAuthorize();
 public slots:
     virtual void replyFinished(QNetworkReply* rep);
-
+protected:
+    BaseAPIReplyHandler *replyHandler = nullptr;
+    QNetworkAccessManager *manager = nullptr;
+    QString baseServerUrl = nullptr;
 };
 
 #endif // BASEAPIREQUEST_H

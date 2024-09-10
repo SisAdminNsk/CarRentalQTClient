@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/server">
+        <file>serverConfiguration.json</file>
+    </qresource>
+</RCC>
