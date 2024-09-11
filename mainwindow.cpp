@@ -11,6 +11,7 @@
 void MainWindow::setupLoginForm(){
 
     QObject::connect(ui->loginPushButton, &QPushButton::clicked, this, &MainWindow::onLoginPushButtonClicked);
+    QObject::connect(ui->newUserPushButton, &QPushButton::clicked, this, &MainWindow::onRegistratePushButtonClicked);
 
     ui->usernameLineEdit->setPlaceholderText("Введите имя пользователя...");
     ui->passwordLineEdit->setPlaceholderText("Введите пароль...");
@@ -18,23 +19,26 @@ void MainWindow::setupLoginForm(){
 }
 
 void MainWindow::onLoginRequestFinished(){
-    this->movie->stop();
+
     this->ui->statusbar->clearMessage();
+    this->ui->loginPushButton->blockSignals(false);
+    this->ui->newUserPushButton->blockSignals(false);
+
     delete loadingLabel;
 }
 
 void MainWindow::onLoginRequestStarted(){
 
+    ui->loginPushButton->blockSignals(true);
+    ui->newUserPushButton->blockSignals(true);
+
     ui->statusbar->showMessage("Выполняется аутентификация, пожалуйста подождите...");
 
-    loadingLabel = new QLabel(this);
-    movie = new QMovie(":/Media/media/loading1.gif");
-    movie->setScaledSize(QSize(22,22));
-    loadingLabel->setMovie(movie);
+    loadingLabel = new LoadingLabel(QSize(22, 22));
+
     this->ui->statusbar->addPermanentWidget(loadingLabel);
 
     loadingLabel->show();
-    movie->start();
 }
 
 MainWindow::MainWindow(QWidget *parent)
@@ -57,30 +61,37 @@ void MainWindow::onLoginPushButtonClicked(){
 
     loginUserRequest->sendRequest();
 
-    ui->statusbar->showMessage("Выполняется аутентификация, пожалуйста подождите ...");
-
     this->onLoginRequestStarted();
 }
 
 void MainWindow::onLoginError(const QString& message){
 
     this->onLoginRequestFinished();
+
     QMessageBox::information(nullptr, "Аутентификация", message);
 }
 
 void MainWindow::onLoginSuccess(const QString& message){ // переключить основное окно на окно приложения
 
     this->onLoginRequestFinished();
+
     QMessageBox::information(nullptr, "Аутентификация", message);
+
+    mainApplicationWindow = new CarRentalClientWindow();
+    mainApplicationWindow->setWindowTitle("New Window");
+    mainApplicationWindow->show();
+
+    this->close();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete mainApplicationWindow;
 }
 
 void MainWindow::onRegistratePushButtonClicked() // переключить основное окно на окно регистрации
 {
-    registrationWindow.show();
+
 }
 

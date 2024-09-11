@@ -6,7 +6,10 @@
 #include <QLabel>
 #include <QNetworkReply>
 #include <QMovie>
+
 #include "registrationwindow.h"
+#include "carrentalclientwindow.h"
+#include "loadinglabel.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,11 +33,9 @@ private:
     void onLoginRequestStarted();
     void onLoginRequestFinished();
 
-    RegistrationWindow registrationWindow;
     Ui::MainWindow *ui;
-
-    QLabel *loadingLabel = nullptr;
-    QMovie *movie = nullptr;
+    LoadingLabel *loadingLabel = nullptr;
+    CarRentalClientWindow *mainApplicationWindow = nullptr;
 
     void setupLoginForm();
 };
