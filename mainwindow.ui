@@ -77,6 +77,7 @@ background-color: rgb(246, 255, 212);
           <property name="styleSheet">
            <string notr="true">QLabel{
 	font-size: 12pt;
+	text-decoration: underline;
 }</string>
           </property>
           <property name="text">
@@ -85,7 +86,7 @@ background-color: rgb(246, 255, 212);
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit">
+         <widget class="QLineEdit" name="usernameLineEdit">
           <property name="styleSheet">
            <string notr="true">QLineEdit {
 	border: 1.5px solid rgb(180,226,155);
@@ -119,6 +120,7 @@ border-radius: 50px;
           <property name="styleSheet">
            <string notr="true">QLabel{
 	font-size: 12pt;
+	text-decoration: underline;
 }</string>
           </property>
           <property name="text">
@@ -127,7 +129,13 @@ border-radius: 50px;
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_2">
+         <widget class="QLineEdit" name="passwordLineEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="styleSheet">
            <string notr="true">QLineEdit {
 	border: 1.5px solid rgb(180,226,155);
@@ -157,14 +165,54 @@ border-radius: 50px;
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="loginPushButton">
+          <property name="styleSheet">
+           <string notr="true">QPushButton{
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+QPushButton:hover{
+	background-color: #45a049;
+}
+
+QPushButton:pressed{
+	background-color: #3e8e41;
+}</string>
+          </property>
           <property name="text">
            <string>Login</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="newUserPushButton">
+          <property name="styleSheet">
+           <string notr="true">QPushButton{
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+QPushButton:hover{
+	background-color: #45a049;
+}
+
+QPushButton:pressed{
+	background-color: #3e8e41;
+}</string>
+          </property>
           <property name="text">
            <string>New User</string>
           </property>

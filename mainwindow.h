@@ -3,7 +3,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
 #include <QNetworkReply>
+#include <QMovie>
 #include "registrationwindow.h"
 
 QT_BEGIN_NAMESPACE
@@ -19,15 +21,22 @@ public:
     ~MainWindow();
 
 private slots:
-    void onRegistrationError(const QString &message);
-    void onRegistrationSuccess(const QString &message);
     void onLoginError(const QString &message);
     void onLoginSuccess(const QString &message);
-    void on_pushButton_2_clicked();
+    void onRegistratePushButtonClicked();
+    void onLoginPushButtonClicked();
 
 private:
+    void onLoginRequestStarted();
+    void onLoginRequestFinished();
+
     RegistrationWindow registrationWindow;
     Ui::MainWindow *ui;
+
+    QLabel *loadingLabel = nullptr;
+    QMovie *movie = nullptr;
+
+    void setupLoginForm();
 };
 
 #endif // MAINWINDOW_H

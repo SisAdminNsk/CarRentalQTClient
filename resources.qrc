@@ -2,4 +2,8 @@
     <qresource prefix="/server">
         <file>serverConfiguration.json</file>
     </qresource>
+    <qresource prefix="/Media">
+        <file>media/loading.gif</file>
+        <file>media/loading1.gif</file>
+    </qresource>
 </RCC>
