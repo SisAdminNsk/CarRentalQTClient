@@ -4,6 +4,7 @@
 
 #include <QMainWindow>
 #include <QNetworkReply>
+#include "registrationwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,7 +23,10 @@ private slots:
     void onRegistrationSuccess(const QString &message);
     void onLoginError(const QString &message);
     void onLoginSuccess(const QString &message);
+    void on_pushButton_2_clicked();
+
 private:
+    RegistrationWindow registrationWindow;
     Ui::MainWindow *ui;
 };
 

@@ -17,7 +17,8 @@ SOURCES += \
     ClientAPI/baseapireplyhandler.cpp \
     ClientAPI/baseapirequest.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    registrationwindow.cpp
 
 HEADERS += \
     ClientAPI/OnUserRouteRequests/loginuserreplyhandler.h \
@@ -26,9 +27,11 @@ HEADERS += \
     ClientAPI/OnUserRouteRequests/registrateuserreplyhandler.h \
     ClientAPI/baseapireplyhandler.h \
     ClientAPI/baseapirequest.h \
-    mainwindow.h
+    mainwindow.h \
+    registrationwindow.h
 
 FORMS += \
+    RegistrationWindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.

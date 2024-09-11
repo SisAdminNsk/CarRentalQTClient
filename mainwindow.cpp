@@ -3,6 +3,7 @@
 #include "ui_mainwindow.h"
 
 #include <QMessageBox>
+
 #include "ClientAPI/OnUserRouteRequests/registraterequest.h"
 #include "ClientAPI/OnUserRouteRequests/loginuserrequest.h"
 
@@ -26,6 +27,12 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(loginUserRequest, &LoginUserRequest::onSuccess, this, &MainWindow::onLoginSuccess);
 
     loginUserRequest->sendRequest();
+    // Заблочить интерфейс
+
+    ui->lineEdit->setPlaceholderText("Введите имя пользователя...");
+
+    ui->lineEdit_2->setPlaceholderText("Введите пароль...");
+    ui->lineEdit_2->setEchoMode(QLineEdit::Password);
 }
 
 void MainWindow::onRegistrationError(const QString& message){
@@ -49,4 +56,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    registrationWindow.show();
+}
 

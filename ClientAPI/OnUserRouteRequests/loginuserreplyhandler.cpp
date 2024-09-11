@@ -1,5 +1,6 @@
 
 #include "loginuserreplyhandler.h"
+#include <QSettings>
 
 LoginUserReplyHandler::LoginUserReplyHandler(LoginUserRequest *loginUserRequest, QObject *parent)
     : BaseAPIReplyHandler{parent}
@@ -12,22 +13,24 @@ void LoginUserReplyHandler::Handle(QNetworkReply* reply){
     auto data = reply->readAll();
     auto jsonDoc = QJsonDocument::fromJson(data);
 
-    if(jsonDoc.isObject()){
+    if(reply->error() != QNetworkReply::NoError){
 
-        auto jsonObj = jsonDoc.object();
+        if(jsonDoc.isObject()){
 
-        if(reply->error() != QNetworkReply::NoError){
-
-            if (jsonDoc.isObject()) {
-                emit this->loginUserRequest->onFailure(jsonObj.value("description").toString());
-                return;
-            }
+            auto jsonObj = jsonDoc.object();
+            emit this->loginUserRequest->onFailure(jsonObj.value("description").toString());
+            return;
         }
 
-        emit this->loginUserRequest->onSuccess(jsonObj.value("description").toString());
+        emit this->loginUserRequest->onFailure("Произошла неизвестная ошибка.");
         return;
     }
 
-    emit this->loginUserRequest->onFailure("Произошла неизвестная ошибка.");
+    auto authorizationToken = data.toStdString();
+
+    QSettings appChache;// сохраняем токен авторизации в кэше у клиента
+    appChache.setValue("userToken", QString::fromStdString(authorizationToken));
+
+    emit this->loginUserRequest->onSuccess("Вход успешно выполнен");
     return;
 }
