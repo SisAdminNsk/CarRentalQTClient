@@ -45,8 +45,12 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    media/carsharingLogo.png \
     media/loading.gif \
     media/loading1.gif \
+    media/loginIcon.png \
+    media/passwordIcon.png \
+    media/usernameIcon.png \
     serverConfiguration.json
 
 RESOURCES += \

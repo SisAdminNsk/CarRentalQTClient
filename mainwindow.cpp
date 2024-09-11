@@ -13,6 +13,14 @@ void MainWindow::setupLoginForm(){
     QObject::connect(ui->loginPushButton, &QPushButton::clicked, this, &MainWindow::onLoginPushButtonClicked);
     QObject::connect(ui->newUserPushButton, &QPushButton::clicked, this, &MainWindow::onRegistratePushButtonClicked);
 
+    auto authenticationIconPixmap = QPixmap(":/Media/media/loginIcon.png");
+    auto usernameIconPixmap = QPixmap(":/Media/media/usernameIcon.png");
+    auto passwordIconPixmap = QPixmap(":/Media/media/passwordIcon.png");
+
+    ui->loginIcon->setPixmap(authenticationIconPixmap.scaled(37,37, Qt::KeepAspectRatio));
+    ui->passwordIcon->setPixmap(passwordIconPixmap.scaled(24,24,Qt::KeepAspectRatio));
+    ui->usernameIcon->setPixmap(usernameIconPixmap.scaled(24,24,Qt::KeepAspectRatio));
+
     ui->usernameLineEdit->setPlaceholderText("Введите имя пользователя...");
     ui->passwordLineEdit->setPlaceholderText("Введите пароль...");
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
@@ -45,6 +53,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    setWindowIcon(QIcon(":/Media/media/carsharingLogo.png"));
+
     ui->setupUi(this);
     setupLoginForm();
 }
