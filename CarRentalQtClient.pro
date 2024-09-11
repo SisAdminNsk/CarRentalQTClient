@@ -10,6 +10,8 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ClientAPI/OnUserRouteRequests/loginuserreplyhandler.cpp \
+    ClientAPI/OnUserRouteRequests/loginuserrequest.cpp \
     ClientAPI/OnUserRouteRequests/registraterequest.cpp \
     ClientAPI/OnUserRouteRequests/registrateuserreplyhandler.cpp \
     ClientAPI/baseapireplyhandler.cpp \
@@ -18,6 +20,8 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    ClientAPI/OnUserRouteRequests/loginuserreplyhandler.h \
+    ClientAPI/OnUserRouteRequests/loginuserrequest.h \
     ClientAPI/OnUserRouteRequests/registraterequest.h \
     ClientAPI/OnUserRouteRequests/registrateuserreplyhandler.h \
     ClientAPI/baseapireplyhandler.h \

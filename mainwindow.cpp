@@ -4,6 +4,7 @@
 
 #include <QMessageBox>
 #include "ClientAPI/OnUserRouteRequests/registraterequest.h"
+#include "ClientAPI/OnUserRouteRequests/loginuserrequest.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -12,12 +13,19 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // сверстать завтра форму под это
-    auto registrateUserRequest = new RegistrateRequest("outlander","string",this);
+    //auto registrateUserRequest = new RegistrateRequest("outlander","string",this);
 
-    QObject::connect(registrateUserRequest, &RegistrateRequest::onFailure, this, &MainWindow::onRegistrationError);
-    QObject::connect(registrateUserRequest, &RegistrateRequest::onSuccess, this, &MainWindow::onRegistrationSuccess);
+    //QObject::connect(registrateUserRequest, &RegistrateRequest::onFailure, this, &MainWindow::onRegistrationError);
+    //QObject::connect(registrateUserRequest, &RegistrateRequest::onSuccess, this, &MainWindow::onRegistrationSuccess);
 
-    registrateUserRequest->sendRequest();
+    //registrateUserRequest->sendRequest();
+
+    auto loginUserRequest = new LoginUserRequest("outlander","string",this);
+
+    QObject::connect(loginUserRequest, &LoginUserRequest::onFailure, this, &MainWindow::onLoginError);
+    QObject::connect(loginUserRequest, &LoginUserRequest::onSuccess, this, &MainWindow::onLoginSuccess);
+
+    loginUserRequest->sendRequest();
 }
 
 void MainWindow::onRegistrationError(const QString& message){
@@ -26,6 +34,14 @@ void MainWindow::onRegistrationError(const QString& message){
 
 void MainWindow::onRegistrationSuccess(const QString& message){
     QMessageBox::information(nullptr, "Регистрация", message);
+}
+
+void MainWindow::onLoginError(const QString& message){
+    QMessageBox::information(nullptr, "Аутентификация", message);
+}
+
+void MainWindow::onLoginSuccess(const QString& message){
+    QMessageBox::information(nullptr, "Аутентификация", message);
 }
 
 MainWindow::~MainWindow()

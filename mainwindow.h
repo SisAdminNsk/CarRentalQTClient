@@ -20,6 +20,8 @@ public:
 private slots:
     void onRegistrationError(const QString &message);
     void onRegistrationSuccess(const QString &message);
+    void onLoginError(const QString &message);
+    void onLoginSuccess(const QString &message);
 private:
     Ui::MainWindow *ui;
 };
