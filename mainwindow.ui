@@ -79,84 +79,24 @@ background-color: rgb(246, 255, 212);
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>20</height>
+          <height>15</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="styleSheet">
-           <string notr="true">QLabel{
-	font-size: 12pt;
-	text-decoration: underline;
-}</string>
-          </property>
-          <property name="text">
-           <string>Username</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="usernameIcon">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="1" column="2">
          <widget class="QLineEdit" name="usernameLineEdit">
           <property name="styleSheet">
            <string notr="true">QLineEdit {
 	border: 1.5px solid rgb(180,226,155);
-border-radius: 50px;
+	border-radius: 50px;
 }</string>
           </property>
          </widget>
         </item>
-       </layout>
-      </item>
-      <item>
-       <spacer name="verticalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>10</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLabel" name="label_2">
-          <property name="styleSheet">
-           <string notr="true">QLabel{
-	font-size: 12pt;
-	text-decoration: underline;
-}</string>
-          </property>
-          <property name="text">
-           <string>Password </string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="passwordIcon">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item>
+        <item row="0" column="2">
          <widget class="QLineEdit" name="passwordLineEdit">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -169,6 +109,49 @@ border-radius: 50px;
 	border: 1.5px solid rgb(180,226,155);
 border-radius: 50px;
 }</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="styleSheet">
+           <string notr="true">QLabel{
+	font-size: 12pt;
+	font-weight: 600;
+}</string>
+          </property>
+          <property name="text">
+           <string>Пароль</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="styleSheet">
+           <string notr="true">QLabel{
+	font-size: 12pt;
+	font-weight: 600;
+}</string>
+          </property>
+          <property name="text">
+           <string>Логин</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="usernameIcon">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="passwordIcon">
+          <property name="text">
+           <string>TextLabel</string>
           </property>
          </widget>
         </item>
@@ -185,13 +168,19 @@ border-radius: 50px;
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>20</height>
+          <height>16</height>
          </size>
         </property>
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="leftMargin">
+         <number>15</number>
+        </property>
+        <property name="rightMargin">
+         <number>15</number>
+        </property>
         <item>
          <widget class="QPushButton" name="loginPushButton">
           <property name="styleSheet">
@@ -202,8 +191,9 @@ border-radius: 50px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 16px;
+	font-size: 20px;
 	cursor: pointer;
+	border-radius: 12px;
 }
 
 QPushButton:hover{
@@ -215,14 +205,64 @@ QPushButton:pressed{
 }</string>
           </property>
           <property name="text">
-           <string>Login</string>
+           <string>Войти в аккаунт</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="newUserPushButton">
-          <property name="styleSheet">
-           <string notr="true">QPushButton{
+         <spacer name="verticalSpacer_4">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>8</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="10,0,10">
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="styleSheet">
+             <string notr="true">QLabel{
+	font-size: 11pt;
+	text-decoration: underline;
+}</string>
+            </property>
+            <property name="text">
+             <string>У вас нет аккаунта?</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>25</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="newUserPushButton">
+            <property name="styleSheet">
+             <string notr="true">QPushButton{
 	background-color: #4CAF50;
 	color: white;
 	border: none;
@@ -231,6 +271,7 @@ QPushButton:pressed{
 	display: inline-block;
 	font-size: 16px;
 	cursor: pointer;
+	border-radius: 8px;
 }
 
 QPushButton:hover{
@@ -240,11 +281,13 @@ QPushButton:hover{
 QPushButton:pressed{
 	background-color: #3e8e41;
 }</string>
-          </property>
-          <property name="text">
-           <string>New User</string>
-          </property>
-         </widget>
+            </property>
+            <property name="text">
+             <string>Регистрация</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </item>
@@ -262,7 +305,13 @@ QPushButton:pressed{
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="styleSheet">
+    <string notr="true">QStatusBar{
+	overflow: hidden;
+}</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

@@ -8,9 +8,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    w.setFixedSize(360,230);
-    w.setMinimumSize(360,230);
-    w.setMaximumSize(360,230);
+    w.setFixedSize(380,285);
+    w.setMinimumSize(380,285);
+    w.setMaximumSize(380,285);
     w.show();
     return a.exec();
 }
