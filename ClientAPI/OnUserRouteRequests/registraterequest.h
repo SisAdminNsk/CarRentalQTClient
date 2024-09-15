@@ -9,14 +9,14 @@ class RegistrateRequest : public BaseAPIRequest
 {
     Q_OBJECT
 public:
-    explicit RegistrateRequest(QString login, QString password, QObject *parent = nullptr);
+    explicit RegistrateRequest(const QString& username, const QString& email,const QString& password, QObject *parent = nullptr);
     virtual void sendRequest() override;
 private:
     QJsonObject registrationUserForm;
     QNetworkRequest registrationRequest;
 signals:
     void onSuccess(const QString &message);
-    void onFailure(const QString &message);
+    void onFailure(const QList<QString> &errors);
 };
 
 #endif // REGISTRATEREQUEST_H

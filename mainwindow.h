@@ -36,6 +36,7 @@ private:
     Ui::MainWindow *ui;
     LoadingLabel *loadingLabel = nullptr;
     CarRentalClientWindow *mainApplicationWindow = nullptr;
+    RegistrationWindow *registrationWindow = nullptr;
 
     void setupLoginForm();
 };

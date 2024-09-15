@@ -27,6 +27,7 @@ signals:
 public slots:
     virtual void replyFinished(QNetworkReply* rep);
 protected:
+    QNetworkCookieJar *cookieJar;
     BaseAPIReplyHandler *replyHandler = nullptr;
     QNetworkAccessManager *manager = nullptr;
     QString baseServerUrl = nullptr;

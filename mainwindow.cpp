@@ -21,8 +21,8 @@ void MainWindow::setupLoginForm(){
     ui->passwordIcon->setPixmap(passwordIconPixmap.scaled(24,24,Qt::KeepAspectRatio));
     ui->usernameIcon->setPixmap(usernameIconPixmap.scaled(24,24,Qt::KeepAspectRatio));
 
-    ui->usernameLineEdit->setPlaceholderText("Введите имя пользователя...");
-    ui->passwordLineEdit->setPlaceholderText("Введите пароль...");
+    ui->usernameLineEdit->setPlaceholderText("Введите вашу почту");
+    ui->passwordLineEdit->setPlaceholderText("Введите ваш пароль");
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
 
@@ -102,6 +102,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::onRegistratePushButtonClicked() // переключить основное окно на окно регистрации
 {
-
+    this->registrationWindow = new RegistrationWindow();
+    this->registrationWindow->show();
 }
 

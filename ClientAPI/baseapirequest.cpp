@@ -5,11 +5,15 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
+#include <QNetworkCookieJar>
+#include <QNetworkCookie>
 
 BaseAPIRequest::BaseAPIRequest(QObject *parent)
     : QObject{parent}
 {
     manager = new QNetworkAccessManager(this);
+    cookieJar = new QNetworkCookieJar();
+    manager->setCookieJar(cookieJar);
 
     connect(manager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
 
@@ -59,6 +63,12 @@ void BaseAPIRequest::replyFinished(QNetworkReply* reply){
 
         emit onNotAuthorize();
         return;
+    }
+
+    QList<QNetworkCookie> cookies = cookieJar->cookiesForUrl(reply->request().url());
+
+    for (const QNetworkCookie& cookie : cookies) {
+        qDebug() << "Cookie name:" << cookie.name() << "value:" << cookie.value();
     }
 
     replyHandler->Handle(reply);

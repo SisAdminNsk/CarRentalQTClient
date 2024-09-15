@@ -16,6 +16,7 @@ SOURCES += \
     ClientAPI/OnUserRouteRequests/registrateuserreplyhandler.cpp \
     ClientAPI/baseapireplyhandler.cpp \
     ClientAPI/baseapirequest.cpp \
+    RegistrationWindowDependeces/formvalidator.cpp \
     carrentalclientwindow.cpp \
     loadinglabel.cpp \
     main.cpp \
@@ -29,6 +30,7 @@ HEADERS += \
     ClientAPI/OnUserRouteRequests/registrateuserreplyhandler.h \
     ClientAPI/baseapireplyhandler.h \
     ClientAPI/baseapirequest.h \
+    RegistrationWindowDependeces/formvalidator.h \
     carrentalclientwindow.h \
     loadinglabel.h \
     mainwindow.h \
@@ -46,6 +48,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     media/carsharingLogo.png \
+    media/email.png \
     media/loading.gif \
     media/loading1.gif \
     media/loginIcon.png \

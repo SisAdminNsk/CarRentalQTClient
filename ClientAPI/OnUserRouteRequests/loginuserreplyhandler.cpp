@@ -22,8 +22,8 @@ void LoginUserReplyHandler::Handle(QNetworkReply* reply){
             return;
         }
 
-        emit this->loginUserRequest->onFailure("Произошла неизвестная ошибка.");
-        return;
+        throw std::runtime_error("LoginUserReplyHandler.Handle.Failure;"
+            " expected jsonObject is not object. Api request->response missmatch");
     }
 
     auto authorizationToken = data.toStdString();

@@ -9,5 +9,6 @@
         <file>media/loginIcon.png</file>
         <file>media/passwordIcon.png</file>
         <file>media/usernameIcon.png</file>
+        <file>media/email.png</file>
     </qresource>
 </RCC>

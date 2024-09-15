@@ -1,0 +1,27 @@
+
+#ifndef FORMVALIDATOR_H
+#define FORMVALIDATOR_H
+
+
+#include <QObject>
+
+#include "registrationwindow.h"
+
+class FormValidator : public QObject
+{
+    Q_OBJECT
+public:
+    explicit FormValidator(RegistrationWindow *registrationWindow, QObject *parent = nullptr);
+private:
+    RegistrationWindow *registrationWindow = nullptr;
+    
+    void setup();
+    void setupValidationForEmail();
+    void setupValidationForUsername();
+    void setupValidationForPassword();
+    //void setupValidationFor
+signals:
+
+};
+
+#endif // FORMVALIDATOR_H

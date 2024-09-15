@@ -8,11 +8,11 @@ LoginUserRequest::LoginUserRequest(const QString &login, const QString &password
 
     setupReplyHandler(new LoginUserReplyHandler(this, this));
 
-    auto url = this->baseServerUrl.append("/User/Login");
+    auto url = this->baseServerUrl.append("/v1/User/Login");
     loginUserRequest = QNetworkRequest(QUrl(url));
     loginUserRequest.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
-    loginUserForm["Login"] = login;
+    loginUserForm["Email"] = login;
     loginUserForm["Password"] = password;
 }
 
