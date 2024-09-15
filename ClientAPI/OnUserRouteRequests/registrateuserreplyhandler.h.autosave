@@ -14,8 +14,7 @@ public:
     virtual void Handle(QNetworkReply* rep) override;
 private:
     RegistrateRequest *registrateRequest = nullptr;
-    void Process400Error(QNetworkReply *reply);
-    void Process409Error(QNetworkReply *reply);
+    void Pro
 };
 
 #endif // REGISTRATEUSERREPLYHANDLER_H

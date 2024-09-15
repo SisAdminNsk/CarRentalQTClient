@@ -4,9 +4,9 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
-// 1) Добавить обработку случаев 409 и 400
-// 2) Добавить валидацию на фронтенде
-// 3) Привести форму регистрации в нормальный вид
+// 1) Добавить обработку случаев 409 и 400 // в процессе
+// 2) Добавить валидацию на фронтенде // сделано
+// 3) Привести форму регистрации в нормальный вид // сделано
 // 4) Когда отправляется код закрыть форму регистрации и открыть новую форму с отправкой кода и таймером на отправку кода
 // после успешной проверки кода закрыть форму отправки кода и снова открыть форму логина
 
@@ -19,63 +19,37 @@ RegistrateUserReplyHandler::RegistrateUserReplyHandler(RegistrateRequest *regist
 
 void RegistrateUserReplyHandler::Handle(QNetworkReply* reply){
 
-    auto data = reply->readAll();
+    if(reply->error() == QNetworkReply::ConnectionRefusedError){
+
+        emit this->registrateRequest->onFailure(QList<QString>{"Сервер временно недопустен"});
+        return;
+    }
 
     if(reply->error() != QNetworkReply::NoError){
 
-        // необходимо обработать случай 409 и случай 400
+        int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
+        if(statusCode == 400){
+            Process400Error(reply);
+        }
 
-
-        auto errorString = reply->errorString();
-        auto jsonDoc = QJsonDocument::fromJson(errorString.toUtf8());
-        auto errors = jsonDoc.object().value("errors").toArray();
-
-        for (int i = 0; i < errors.size(); ++i) {
-            if(errors[i].toString() == "Email"){
-
-            }
-
-            if(errors[i].toString() == "Password"){
-
-            }
+        if(statusCode == 409){
+            Process409Error(reply);
         }
     }
 
-    if(reply->error() == QNetworkReply::NoError){
+    emit this->registrateRequest->onSuccess("Код подтверждения регистрации отправлен на указанную почту");
+}
 
-        QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
-        auto jsonObj = jsonDoc.object();
+void RegistrateUserReplyHandler::Process400Error(QNetworkReply* reply){
 
-        emit this->registrateRequest->onSuccess(jsonObj.value("message").toString());
-        return;
-    }
+    throw std::runtime_error("RegistrateUserReplyHandler.Handle.Failure;"
+        " occures some validation problems api has some request->response missmatches");
+}
 
-    int statusCode = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+void RegistrateUserReplyHandler::Process409Error(QNetworkReply* reply){
 
-    if(statusCode == 400){ // возникла ошибка при регистрации
 
-        QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
-        if (jsonDoc.isNull()){
-            //emit this->registrateRequest->onFailure("Произошла неизвестная ошибка при регистрации");
-            //return;
-        }
 
-        if (jsonDoc.isArray()) {
-
-            auto arr = jsonDoc.array();
-
-            for(size_t i=0;i<arr.size();i++){
-
-                if(arr[i].isObject()){
-                    QJsonObject jsonObj = arr[i].toObject();
-                    //emit this->registrateRequest->onFailure(jsonObj.value("description").toString());
-                    //return;
-                }
-            }
-        }
-
-        //emit this->registrateRequest->onFailure("Произошла неизвестная ошибка при регистрации");
-        return;
-    }
+    // сказать что пользователь с указанными данные уже зарегистрирован
 }

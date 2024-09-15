@@ -10,10 +10,16 @@ LoginUserReplyHandler::LoginUserReplyHandler(LoginUserRequest *loginUserRequest,
 
 void LoginUserReplyHandler::Handle(QNetworkReply* reply){
 
-    auto data = reply->readAll();
+    auto data = reply->readAll();    
     auto jsonDoc = QJsonDocument::fromJson(data);
 
+
     if(reply->error() != QNetworkReply::NoError){
+
+        if(reply->error() == QNetworkReply::ConnectionRefusedError){
+            emit this->loginUserRequest->onFailure("Сервер недоступен");
+            return;
+        }
 
         if(jsonDoc.isObject()){
 

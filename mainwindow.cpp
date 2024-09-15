@@ -104,5 +104,6 @@ void MainWindow::onRegistratePushButtonClicked() // переключить ос�
 {
     this->registrationWindow = new RegistrationWindow();
     this->registrationWindow->show();
+    this->close();
 }
 

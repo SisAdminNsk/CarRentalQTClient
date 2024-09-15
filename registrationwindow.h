@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QJsonObject>
+#include "loadinglabel.h"
 #include "ClientAPI/OnUserRouteRequests/registraterequest.h"
 
 namespace Ui {
@@ -21,12 +22,18 @@ private:
     QString checkboxValidStyleSheet = "QLineEdit { border: 2px solid green; }";
     QString checkboxNotValidStyleSheet = "QLineEdit { border: 2px solid red; }";
 
+    LoadingLabel *loadingLabel = nullptr;
     Ui::RegistrationWindow *ui;
     RegistrateRequest *registrateRequest = nullptr;
 
     void setupInputFields();
     void setupCheckboxes();
     void connectiWithSignals();
+
+    void onRegistrateRequestStarted();
+    void onRegistrateRequestFinished();
+
+    bool isAllFormsValidated();
 
 private slots:
     void setupRegistrationForm();
