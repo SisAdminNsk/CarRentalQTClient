@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QJsonObject>
 #include "loadinglabel.h"
+#include <QHash>
+#include <QCheckBox>
+#include <QLineEdit>
 #include "ClientAPI/OnUserRouteRequests/registraterequest.h"
 
 namespace Ui {
@@ -18,7 +21,10 @@ public:
     explicit RegistrationWindow(QWidget *parent = nullptr);
     ~RegistrationWindow();
 
-private:
+private:  
+    QSet<QString> registeredUsernames;
+    QSet<QString> registeredEmails;
+
     QString checkboxValidStyleSheet = "QLineEdit { border: 2px solid green; }";
     QString checkboxNotValidStyleSheet = "QLineEdit { border: 2px solid red; }";
 
@@ -35,12 +41,19 @@ private:
 
     bool isAllFormsValidated();
 
+    void showDefaultEmailClue();
+    void showDefaultUsernameClue();
+
+    void onNotValidAction(QLineEdit* lineEdit, QLabel* clue, QCheckBox* checkbox);
+    void onValidAction(QLineEdit* lineEdit, QLabel* clue, QCheckBox* checkbox);
+
+
 private slots:
     void setupRegistrationForm();
 
     void onRegistratePushButtonClicked();
     void onRegistrationSuccess(const QString& message);
-    void onRegistrationError(const QList<QString>& message);
+    void onRegistrationError(const QMap<QString, QString>& errors);
 
     void validateEmail();
     void validatePassword();

@@ -16,7 +16,7 @@ private:
     QNetworkRequest registrationRequest;
 signals:
     void onSuccess(const QString &message);
-    void onFailure(const QList<QString> &errors);
+    void onFailure(const QMap<QString, QString>& errors);
 };
 
 #endif // REGISTRATEREQUEST_H
