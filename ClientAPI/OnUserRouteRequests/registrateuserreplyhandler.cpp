@@ -5,13 +5,6 @@
 #include <QJsonDocument>
 #include <QMap>
 
-// 1) Добавить обработку случаев 409 и 400 // в процессе
-// 2) Добавить валидацию на фронтенде // сделано
-// 3) Привести форму регистрации в нормальный вид // сделано
-// 4) Когда отправляется код закрыть форму регистрации и открыть новую форму с отправкой кода и таймером на отправку кода
-// после успешной проверки кода закрыть форму отправки кода и снова открыть форму логина
-
-
 RegistrateUserReplyHandler::RegistrateUserReplyHandler(RegistrateRequest *registrateRequest, QObject *parent)
     : BaseAPIReplyHandler(parent)
 {

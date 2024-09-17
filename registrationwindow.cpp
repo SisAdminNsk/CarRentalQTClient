@@ -1,6 +1,7 @@
 #include "registrationwindow.h"
 #include "ui_registrationwindow.h"
 #include "RegistrationWindowDependeces/formvalidator.h"
+#include "verificationcodewindow.h"
 #include <QMessageBox>
 
 RegistrationWindow::RegistrationWindow(QWidget *parent) :
@@ -42,7 +43,7 @@ void RegistrationWindow::onRegistrateRequestStarted(){
 
     loadingLabel = new LoadingLabel(QSize(22, 22));
 
-    this->ui->statusbar->addPermanentWidget(loadingLabel);
+    ui->statusbar->addPermanentWidget(loadingLabel);
 
     loadingLabel->show();
 }
@@ -50,7 +51,7 @@ void RegistrationWindow::onRegistrateRequestStarted(){
 void RegistrationWindow::onRegistrateRequestFinished(){
 
     ui->registratePushButton->blockSignals(false);
-    this->ui->statusbar->clearMessage();
+    ui->statusbar->clearMessage();
     delete loadingLabel;
 }
 
@@ -72,95 +73,92 @@ void RegistrationWindow::connectiWithSignals(){
 
 void RegistrationWindow::setupInputFields(){
 
-    this->ui->emailLineEdit->setPlaceholderText("Введите свою электронную почту");
-    this->ui->usernameLineEdit->setPlaceholderText("Введите имя нового пользователя");
+    ui->emailLineEdit->setPlaceholderText("Введите свою электронную почту");
+    ui->usernameLineEdit->setPlaceholderText("Введите имя нового пользователя");
 
-    this->ui->passwordLineEdit->setPlaceholderText("Придумайте новый пароль");
-    this->ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
+    ui->passwordLineEdit->setPlaceholderText("Придумайте новый пароль");
+    ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 
-    this->ui->confirmPasswordLineEdit->setPlaceholderText("Введите пароль еще раз");
-    this->ui->confirmPasswordLineEdit->setEchoMode(QLineEdit::Password);
+    ui->confirmPasswordLineEdit->setPlaceholderText("Введите пароль еще раз");
+    ui->confirmPasswordLineEdit->setEchoMode(QLineEdit::Password);
 
-    this->ui->confirmPasswordLineEdit->setEnabled(false);
+    ui->confirmPasswordLineEdit->setEnabled(false);
 }
 
 void RegistrationWindow::setupCheckboxes(){
 
-    this->ui->emailCheckbox->setEnabled(false);
-    this->ui->emailCheckbox->setHidden(true);
+    ui->emailCheckbox->setEnabled(false);
+    ui->emailCheckbox->setHidden(true);
 
-    this->ui->usernameCheckbox->setEnabled(false);
-    this->ui->usernameCheckbox->setHidden(true);
+    ui->usernameCheckbox->setEnabled(false);
+    ui->usernameCheckbox->setHidden(true);
 
-    this->ui->passwordCheckbox->setEnabled(false);
-    this->ui->passwordCheckbox->setHidden(true);
+    ui->passwordCheckbox->setEnabled(false);
+    ui->passwordCheckbox->setHidden(true);
 
-    this->ui->confirmPasswordCheckbox->setEnabled(false);
-    this->ui->confirmPasswordCheckbox->setHidden(true);
+    ui->confirmPasswordCheckbox->setEnabled(false);
+    ui->confirmPasswordCheckbox->setHidden(true);
 }
 
 void RegistrationWindow::validateEmail(){
 
-    auto email = this->ui->emailLineEdit->text();
+    auto email = ui->emailLineEdit->text();
 
     if(this->registeredEmails.contains(email)){
-        this->ui->emailClue->setVisible(true);
-        this->ui->emailCheckbox->setHidden(true);
-        this->ui->emailClue->setText("Введенная почта уже зарегистрирована");
-        this->ui->emailClue->setStyleSheet("color: red;");
-        this->ui->emailCheckbox->setChecked(false);
-        this->ui->emailLineEdit->setStyleSheet(checkboxNotValidStyleSheet);
+
+        ui->emailClue->setVisible(true);
+        ui->emailCheckbox->setHidden(true);
+        ui->emailClue->setText("Введенная почта уже зарегистрирована");
+        ui->emailClue->setStyleSheet("color: red;");
+        ui->emailCheckbox->setChecked(false);
+        ui->emailLineEdit->setStyleSheet(checkboxNotValidStyleSheet);
 
         return;
     }
 
     bool isValid = FormValidator::isValidEmail(email);
 
-    this->ui->emailCheckbox->setChecked(isValid);
+    ui->emailCheckbox->setChecked(isValid);
 
     if(isValid){      
-        onValidAction(this->ui->emailLineEdit, this->ui->emailClue, this->ui->emailCheckbox);
+        onValidAction(ui->emailLineEdit, ui->emailClue, ui->emailCheckbox);
     }
     else{
         showDefaultEmailClue();
-        onNotValidAction(this->ui->emailLineEdit,this->ui->emailClue, this->ui->emailCheckbox);
+        onNotValidAction(ui->emailLineEdit,ui->emailClue, ui->emailCheckbox);
     }
 }
 
 void RegistrationWindow::validatePassword(){
 
-    auto password = this->ui->passwordLineEdit->text();
+    auto password = ui->passwordLineEdit->text();
     bool isValid = FormValidator::isValidPassword(password);
-    this->ui->passwordCheckbox->setChecked(isValid);
+    ui->passwordCheckbox->setChecked(isValid);
 
     if(isValid){
-        this->ui->passwordLineEdit->setStyleSheet(checkboxValidStyleSheet);
-        this->ui->passwordCheckbox->setHidden(false);
-        this->ui->passwordClue->setHidden(true);
-        this->ui->confirmPasswordLineEdit->setEnabled(true);
+        onValidAction(ui->passwordLineEdit, ui->passwordClue, ui->passwordCheckbox);
+        ui->confirmPasswordLineEdit->setEnabled(true);
     }
     else{
-        this->ui->passwordLineEdit->setStyleSheet(checkboxNotValidStyleSheet);
-        this->ui->passwordCheckbox->setHidden(true);
-        this->ui->passwordClue->setHidden(false);
-        this->ui->confirmPasswordLineEdit->setEnabled(false);
+        onNotValidAction(ui->passwordLineEdit, ui->passwordClue, ui->passwordCheckbox);
+        ui->confirmPasswordLineEdit->setEnabled(false);
     }
 }
 
 void RegistrationWindow::validateConfirmPassword(){
 
-    auto password = this->ui->passwordLineEdit->text();
-    auto confirmPassword = this->ui->confirmPasswordLineEdit->text();
+    auto password = ui->passwordLineEdit->text();
+    auto confirmPassword = ui->confirmPasswordLineEdit->text();
 
-    if(confirmPassword == password){
-        this->ui->confirmPasswordLineEdit->setStyleSheet(checkboxValidStyleSheet);
-        this->ui->confirmPasswordCheckbox->setChecked(true);
-        this->ui->confirmPasswordCheckbox->setHidden(false);
+    if(confirmPassword == password){        
+        ui->confirmPasswordLineEdit->setStyleSheet(checkboxValidStyleSheet);
+        ui->confirmPasswordCheckbox->setChecked(true);
+        ui->confirmPasswordCheckbox->setHidden(false);
     }
     else{
-        this->ui->confirmPasswordLineEdit->setStyleSheet(checkboxNotValidStyleSheet);
-        this->ui->confirmPasswordCheckbox->setChecked(false);
-        this->ui->confirmPasswordCheckbox->setHidden(true);
+        ui->confirmPasswordLineEdit->setStyleSheet(checkboxNotValidStyleSheet);
+        ui->confirmPasswordCheckbox->setChecked(false);
+        ui->confirmPasswordCheckbox->setHidden(true);
     }
 }
 
@@ -180,41 +178,42 @@ void RegistrationWindow::onValidAction(QLineEdit* lineEdit, QLabel* clue, QCheck
 
 void RegistrationWindow::showDefaultEmailClue(){
 
-    this->ui->emailClue->setText("Например: someperson@value.com");
-    this->ui->emailClue->setStyleSheet("QLabel {font-size: 8pt;}");
+    ui->emailClue->setText("Например: someperson@value.com");
+    ui->emailClue->setStyleSheet("QLabel {font-size: 8pt;}");
 }
 
 void RegistrationWindow::showDefaultUsernameClue(){
 
-    this->ui->usernameClue->setText("[ a-Z, 0-9, _ ] длина имени от 6 до 32 символов ");
-    this->ui->usernameClue->setStyleSheet("QLabel {font-size: 8pt;}");
+    ui->usernameClue->setText("[ a-Z, 0-9, _ ] длина имени от 6 до 32 символов ");
+    ui->usernameClue->setStyleSheet("QLabel {font-size: 8pt;}");
 }
 
 void RegistrationWindow::validateUsername(){
 
-    auto username = this->ui->usernameLineEdit->text();
+    auto username = ui->usernameLineEdit->text();
 
-    if(this->registeredUsernames.contains(username)){
-        this->ui->usernameClue->setVisible(true);
-        this->ui->usernameCheckbox->setHidden(true);
-        this->ui->usernameClue->setText("Данное имя занято");
-        this->ui->usernameClue->setStyleSheet("color: red;");
-        this->ui->usernameCheckbox->setChecked(false);
-        this->ui->usernameLineEdit->setStyleSheet(checkboxNotValidStyleSheet);
+    if(registeredUsernames.contains(username)){
+
+        ui->usernameClue->setVisible(true);
+        ui->usernameCheckbox->setHidden(true);
+        ui->usernameClue->setText("Данное имя занято");
+        ui->usernameClue->setStyleSheet("color: red;");
+        ui->usernameCheckbox->setChecked(false);
+        ui->usernameLineEdit->setStyleSheet(checkboxNotValidStyleSheet);
 
         return;
     }
 
     bool isValid = FormValidator::isValidUsername(username);
 
-    this->ui->usernameCheckbox->setChecked(isValid);
+    ui->usernameCheckbox->setChecked(isValid);
 
     if(isValid){
-        onValidAction(this->ui->usernameLineEdit, this->ui->usernameClue, this->ui->usernameCheckbox);
+        onValidAction(ui->usernameLineEdit, ui->usernameClue, ui->usernameCheckbox);
     }
     else{
         showDefaultUsernameClue();
-        onNotValidAction(this->ui->usernameLineEdit, this->ui->usernameClue, this->ui->usernameCheckbox);
+        onNotValidAction(ui->usernameLineEdit, ui->usernameClue, ui->usernameCheckbox);
     }
 }
 
@@ -236,47 +235,62 @@ void RegistrationWindow::onRegistratePushButtonClicked(){
         auto email = ui->emailLineEdit->text();
         auto password = ui->passwordLineEdit->text();
 
-        this->registrateRequest = new RegistrateRequest(username, email, password);
+        registrateRequest = new RegistrateRequest(username, email, password);
 
         QObject::connect(registrateRequest, &RegistrateRequest::onFailure, this, &RegistrationWindow::onRegistrationError);
         QObject::connect(registrateRequest, &RegistrateRequest::onSuccess, this, &RegistrationWindow::onRegistrationSuccess);
 
-        this->registrateRequest->sendRequest();
-        this->onRegistrateRequestStarted();
+        registrateRequest->sendRequest();
+        onRegistrateRequestStarted();
     }
 }
 
 void RegistrationWindow::onRegistrationSuccess(const QString& message){
 
     onRegistrateRequestFinished();
-    QMessageBox::information(nullptr, "Регистрация", message); // перейти к вводу кода подтверждения
+
+    auto verificationCodeWindow = new VerificationCodeWindow(UserRegistrateDTO(
+        ui->emailLineEdit->text(),
+        ui->usernameLineEdit->text(),
+        ui->passwordLineEdit->text()));
+
+    close();
+    verificationCodeWindow->show();
+
+    //QMessageBox::information(nullptr, "Регистрация", message); // перейти к вводу кода подтверждения
 }
 
 void RegistrationWindow::onRegistrationError(const QMap<QString, QString>& errors){
 
     onRegistrateRequestFinished();
 
+    if(errors.contains("Server")){
+        QMessageBox::information(nullptr, "Регистрация", errors["Server"]);
+        return;
+    }
+
+
     if(errors.contains("Email")){
 
-        this->ui->emailClue->setText("Введенная почта уже зарегистрирована");
-        this->ui->emailClue->setStyleSheet("color: red;");
-        this->ui->emailClue->setHidden(false);
-        this->ui->emailCheckbox->setChecked(false);
-        this->ui->emailCheckbox->setVisible(false);
-        this->ui->emailLineEdit->setStyleSheet(checkboxNotValidStyleSheet);
+        ui->emailClue->setText("Введенная почта уже зарегистрирована");
+        ui->emailClue->setStyleSheet("color: red;");
+        ui->emailClue->setHidden(false);
+        ui->emailCheckbox->setChecked(false);
+        ui->emailCheckbox->setVisible(false);
+        ui->emailLineEdit->setStyleSheet(checkboxNotValidStyleSheet);
 
-        registeredEmails.insert(this->ui->emailLineEdit->text());
+        registeredEmails.insert(ui->emailLineEdit->text());
     }
 
     if(errors.contains("Username")){
 
-        this->ui->usernameClue->setText("Введенное имя занято");
-        this->ui->usernameClue->setStyleSheet("color: red;");
-        this->ui->usernameClue->setHidden(false);
-        this->ui->usernameCheckbox->setChecked(false);
-        this->ui->usernameCheckbox->setVisible(false);
-        this->ui->usernameLineEdit->setStyleSheet(checkboxNotValidStyleSheet);
+        ui->usernameClue->setText("Введенное имя занято");
+        ui->usernameClue->setStyleSheet("color: red;");
+        ui->usernameClue->setHidden(false);
+        ui->usernameCheckbox->setChecked(false);
+        ui->usernameCheckbox->setVisible(false);
+        ui->usernameLineEdit->setStyleSheet(checkboxNotValidStyleSheet);
 
-        registeredUsernames.insert(this->ui->usernameLineEdit->text());
+        registeredUsernames.insert(ui->usernameLineEdit->text());
     }
 }

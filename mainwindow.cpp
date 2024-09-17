@@ -7,6 +7,7 @@
 
 #include "ClientAPI/OnUserRouteRequests/registraterequest.h"
 #include "ClientAPI/OnUserRouteRequests/loginuserrequest.h"
+#include "verificationcodewindow.h"
 
 void MainWindow::setupLoginForm(){
 
@@ -25,7 +26,6 @@ void MainWindow::setupLoginForm(){
     ui->passwordLineEdit->setPlaceholderText("Введите ваш пароль");
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
-
 void MainWindow::onLoginRequestFinished(){
 
     this->ui->statusbar->clearMessage();
