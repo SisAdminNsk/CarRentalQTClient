@@ -3,20 +3,32 @@
 #include "ui_mainwindow.h"
 
 #include <QMessageBox>
-#include <QProgressDialog>
 
-#include "ClientAPI/OnUserRouteRequests/registraterequest.h"
-#include "ClientAPI/OnUserRouteRequests/loginuserrequest.h"
-#include "verificationcodewindow.h"
+#include "API/Endpoints/Users/Requests/loginrequest.h"
 
-void MainWindow::setupLoginForm(){
 
-    QObject::connect(ui->loginPushButton, &QPushButton::clicked, this, &MainWindow::onLoginPushButtonClicked);
-    QObject::connect(ui->newUserPushButton, &QPushButton::clicked, this, &MainWindow::onRegistratePushButtonClicked);
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    Setup();
+}
 
-    auto authenticationIconPixmap = QPixmap(":/Media/media/loginIcon.png");
-    auto usernameIconPixmap = QPixmap(":/Media/media/usernameIcon.png");
-    auto passwordIconPixmap = QPixmap(":/Media/media/passwordIcon.png");
+void MainWindow::Setup(){
+
+    setFixedSize(500,320);
+    setMinimumSize(500,320);
+    setMaximumSize(500,320);
+
+    QObject::connect(ui->loginPushButton, &QPushButton::clicked, this, &MainWindow::OnLoginPushButtonClicked);
+    QObject::connect(ui->newUserPushButton, &QPushButton::clicked, this, &MainWindow::OnRegistratePushButtonClicked);
+
+    auto authenticationIconPixmap = QPixmap(":/images/Media/loginIcon.png");
+    auto usernameIconPixmap = QPixmap(":/images/Media/usernameIcon.png");
+    auto passwordIconPixmap = QPixmap(":/images/Media/passwordIcon.png");
+
+    setWindowIcon(QIcon(":/Media/media/carsharingLogo.png"));
 
     ui->loginIcon->setPixmap(authenticationIconPixmap.scaled(37,37, Qt::KeepAspectRatio));
     ui->passwordIcon->setPixmap(passwordIconPixmap.scaled(24,24,Qt::KeepAspectRatio));
@@ -26,16 +38,23 @@ void MainWindow::setupLoginForm(){
     ui->passwordLineEdit->setPlaceholderText("Введите ваш пароль");
     ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
 }
-void MainWindow::onLoginRequestFinished(){
 
-    this->ui->statusbar->clearMessage();
-    this->ui->loginPushButton->blockSignals(false);
-    this->ui->newUserPushButton->blockSignals(false);
+void MainWindow::OnLoginPushButtonClicked(){
 
-    delete loadingLabel;
+    auto userLogin = ui->usernameLineEdit->text();
+    auto userPassword = ui->passwordLineEdit->text();
+
+    auto loginUserRequest = new LoginRequest(LoginDTO(userLogin, userPassword), this);
+
+    QObject::connect(loginUserRequest, &LoginRequest::OnFailureSignal, this, &MainWindow::OnLoginError);
+    QObject::connect(loginUserRequest, &LoginRequest::OnSuccessSignal, this, &MainWindow::OnLoginSuccess);
+
+    loginUserRequest->SendApiRequest();
+
+    OnLoginRequestStarted();
 }
 
-void MainWindow::onLoginRequestStarted(){
+void MainWindow::OnLoginRequestStarted(){
 
     ui->loginPushButton->blockSignals(true);
     ui->newUserPushButton->blockSignals(true);
@@ -49,61 +68,45 @@ void MainWindow::onLoginRequestStarted(){
     loadingLabel->show();
 }
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
-    setWindowIcon(QIcon(":/Media/media/carsharingLogo.png"));
+void MainWindow::OnLoginRequestFinished(){
 
-    ui->setupUi(this);
-    setupLoginForm();
+    this->ui->statusbar->clearMessage();
+    this->ui->loginPushButton->blockSignals(false);
+    this->ui->newUserPushButton->blockSignals(false);
+
+    delete loadingLabel;
 }
 
-void MainWindow::onLoginPushButtonClicked(){
+void MainWindow::OnLoginSuccess(const QString &message){
 
-    auto userLogin = ui->usernameLineEdit->text();
-    auto userPassword = ui->passwordLineEdit->text();
-
-    auto loginUserRequest = new LoginUserRequest(userLogin, userPassword,this);
-
-    QObject::connect(loginUserRequest, &LoginUserRequest::onFailure, this, &MainWindow::onLoginError);
-    QObject::connect(loginUserRequest, &LoginUserRequest::onSuccess, this, &MainWindow::onLoginSuccess);
-
-    loginUserRequest->sendRequest();
-
-    this->onLoginRequestStarted();
-}
-
-void MainWindow::onLoginError(const QString& message){
-
-    this->onLoginRequestFinished();
-
-    QMessageBox::information(nullptr, "Аутентификация", message);
-}
-
-void MainWindow::onLoginSuccess(const QString& message){ // переключить основное окно на окно приложения
-
-    this->onLoginRequestFinished();
+    this->OnLoginRequestFinished();
 
     QMessageBox::information(nullptr, "Аутентификация", message);
 
-    mainApplicationWindow = new CarRentalClientWindow();
-    mainApplicationWindow->setWindowTitle("New Window");
-    mainApplicationWindow->show();
+    //mainApplicationWindow = new CarRentalClientWindow();
+    //mainApplicationWindow->setWindowTitle("New Window");
+    //mainApplicationWindow->show();
 
     this->close();
+}
+
+void MainWindow::OnLoginError(const QString &message){
+
+    this->OnLoginRequestFinished();
+
+    QMessageBox::information(nullptr, "Аутентификация", message);
+}
+
+void MainWindow::OnRegistratePushButtonClicked(){
+
+    registrationForm = new RegistrationForm();
+    registrationForm->show();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete mainApplicationWindow;
+    delete registrationForm;
 }
 
-void MainWindow::onRegistratePushButtonClicked() // переключить основное окно на окно регистрации
-{
-    this->registrationWindow = new RegistrationWindow();
-    this->registrationWindow->show();
-    this->close();
-}
 

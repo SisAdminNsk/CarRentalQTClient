@@ -3,13 +3,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QLabel>
-#include <QNetworkReply>
-#include <QMovie>
 
-#include "registrationwindow.h"
-#include "carrentalclientwindow.h"
-#include "loadinglabel.h"
+#include <ViewModels/LoadingLabel/loadinglabel.h>
+#include "ViewModels/registrationform.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,21 +20,21 @@ public:
     ~MainWindow();
 
 private slots:
-    void onLoginError(const QString &message);
-    void onLoginSuccess(const QString &message);
-    void onRegistratePushButtonClicked();
-    void onLoginPushButtonClicked();
+    void OnLoginError(const QString &message);
+    void OnLoginSuccess(const QString &message);
+
+    void OnLoginRequestStarted();
+    void OnLoginRequestFinished();
+
+    void OnRegistratePushButtonClicked();
+    void OnLoginPushButtonClicked();
 
 private:
-    void onLoginRequestStarted();
-    void onLoginRequestFinished();
+    void Setup();
 
     Ui::MainWindow *ui;
-    LoadingLabel *loadingLabel = nullptr;
-    CarRentalClientWindow *mainApplicationWindow = nullptr;
-    RegistrationWindow *registrationWindow = nullptr;
-
-    void setupLoginForm();
+    LoadingLabel *loadingLabel;
+    RegistrationForm *registrationForm;
 };
 
 #endif // MAINWINDOW_H
