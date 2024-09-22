@@ -6,7 +6,6 @@
 
 #include "API/Endpoints/Users/Requests/loginrequest.h"
 
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -28,7 +27,7 @@ void MainWindow::Setup(){
     auto usernameIconPixmap = QPixmap(":/images/Media/usernameIcon.png");
     auto passwordIconPixmap = QPixmap(":/images/Media/passwordIcon.png");
 
-    setWindowIcon(QIcon(":/Media/media/carsharingLogo.png"));
+    setWindowIcon(QIcon(":/images/Media/carsharingLogo.png"));
 
     ui->loginIcon->setPixmap(authenticationIconPixmap.scaled(37,37, Qt::KeepAspectRatio));
     ui->passwordIcon->setPixmap(passwordIconPixmap.scaled(24,24,Qt::KeepAspectRatio));
@@ -77,11 +76,11 @@ void MainWindow::OnLoginRequestFinished(){
     delete loadingLabel;
 }
 
-void MainWindow::OnLoginSuccess(const QString &message){
+void MainWindow::OnLoginSuccess(const QString &accessToken){
 
     this->OnLoginRequestFinished();
 
-    QMessageBox::information(nullptr, "Аутентификация", message);
+    QMessageBox::information(nullptr, "Аутентификация", accessToken);
 
     //mainApplicationWindow = new CarRentalClientWindow();
     //mainApplicationWindow->setWindowTitle("New Window");

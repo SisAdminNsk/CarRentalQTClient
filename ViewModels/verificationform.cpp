@@ -14,6 +14,17 @@ VerificationForm::VerificationForm(RegistrateDTO registrateDTO, QNetworkCookieJa
     Setup();
 }
 
+void VerificationForm::SetupSendAgainVerificationCodeRequest(){
+
+    sendVerificationCodeAgainRequest = new GetVerificationCodeRequest(registrateDTO.email);
+    sendVerificationCodeAgainRequest->SetCookies(cookieJar);
+
+    QObject::connect(sendVerificationCodeAgainRequest, &GetVerificationCodeRequest::OnFailureSignal, this,
+                     &VerificationForm::OnSendAgainVerificationCodeError);
+    QObject::connect(sendVerificationCodeAgainRequest, &GetVerificationCodeRequest::OnSuccessSingal, this,
+                     &VerificationForm::OnSendAgainVerificationCodeSuccess);
+}
+
 void VerificationForm::Setup(){
 
     setWindowIcon(QIcon(":/images/Media/carsharingLogo.png"));
@@ -91,9 +102,21 @@ void VerificationForm::SetupVerificationRequest(RegistrateDTO registrateDTO, QSt
 }
 
 void VerificationForm::OnSendAgainButtonClicked(){
+
     SetSendAgainButtonTimeoutInSec();
     ui->sendAgainButton->setDisabled(true);
     sendAgainTimer->start(timerTickInMs);
+
+    SetupSendAgainVerificationCodeRequest();
+    sendVerificationCodeAgainRequest->SendApiRequest();
+}
+
+void VerificationForm::OnSendAgainVerificationCodeError(const QString& message){
+    QMessageBox::information(nullptr, "Верификация", message);
+}
+
+void VerificationForm::OnSendAgainVerificationCodeSuccess(const QString& message){
+    QMessageBox::information(nullptr, "Верификация", message);
 }
 
 void VerificationForm::OnCloseButtonClicked(){

@@ -5,7 +5,6 @@
 
 #include "ViewModels/Validators/formvalidator.h"
 #include "ViewModels/verificationform.h"
-#include "ClientCache/cachemanager.h"
 
 RegistrationForm::RegistrationForm(QWidget *parent) :
     QMainWindow(parent),

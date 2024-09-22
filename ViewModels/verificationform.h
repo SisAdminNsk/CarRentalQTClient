@@ -7,6 +7,7 @@
 
 #include "API/DTO/registratedto.h"
 #include "API/Endpoints/Users/Requests/verificationrequest.h"
+#include "API/Endpoints/Users/Requests/getverificationcoderequest.h"
 #include "ViewModels/LoadingLabel/loadinglabel.h"
 
 namespace Ui {
@@ -26,6 +27,7 @@ private:
     Ui::VerificationForm *ui;
     RegistrateDTO registrateDTO;
     VerificationRequest *verificationRequest = nullptr;
+    GetVerificationCodeRequest *sendVerificationCodeAgainRequest;
 
     LoadingLabel *loadingLabel = nullptr;
     QNetworkCookieJar *cookieJar = nullptr;
@@ -37,6 +39,7 @@ private:
 
     void SetupTimer();
     void SetupInputVerificationCode();
+    void SetupSendAgainVerificationCodeRequest();
     void SetupVerificationRequest(RegistrateDTO registrateDTO, QString verificationCode);
 private slots:
 
@@ -48,6 +51,9 @@ private slots:
 
     void OnVerificationError(const QString& message);
     void OnVerificationSuccess(const QString& message);
+
+    void OnSendAgainVerificationCodeError(const QString& message);
+    void OnSendAgainVerificationCodeSuccess(const QString& message);
 
     void OnVerificationRequestFinished();
     void OnVerificationRequestStarted();

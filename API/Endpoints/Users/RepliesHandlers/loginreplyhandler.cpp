@@ -1,6 +1,5 @@
 
 #include "loginreplyhandler.h"
-#include "ClientCache/cachemanager.h"
 
 LoginReplyHandler::LoginReplyHandler(LoginRequest *loginRequest, QObject *parent)
     : BaseApiReplyHandler(parent)
@@ -33,9 +32,6 @@ void LoginReplyHandler::Handle(QNetworkReply* reply){
 
     auto authorizationToken = data.toStdString();
 
-    CacheManager cache;
-    cache.SaveToCache("LoginToken", QString::fromStdString(authorizationToken));
-
-    emit this->loginRequest->OnSuccessSignal("Вход успешно выполнен");
+    emit this->loginRequest->OnSuccessSignal(QString::fromStdString(authorizationToken));
     return;
 }

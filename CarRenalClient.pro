@@ -13,15 +13,16 @@ SOURCES += \
     API/DTO/baseapidto.cpp \
     API/DTO/logindto.cpp \
     API/DTO/registratedto.cpp \
+    API/Endpoints/Users/RepliesHandlers/getverificationcodereplyhandler.cpp \
     API/Endpoints/Users/RepliesHandlers/loginreplyhandler.cpp \
     API/Endpoints/Users/RepliesHandlers/registratereplyhandler.cpp \
     API/Endpoints/Users/RepliesHandlers/verificatereplyhandler.cpp \
+    API/Endpoints/Users/Requests/getverificationcoderequest.cpp \
     API/Endpoints/Users/Requests/loginrequest.cpp \
     API/Endpoints/Users/Requests/registraterequest.cpp \
     API/Endpoints/Users/Requests/verificationrequest.cpp \
     API/Endpoints/baseapireplyhandler.cpp \
     API/Endpoints/baseapirequest.cpp \
-    ClientCache/cachemanager.cpp \
     Configuration/configurationmanager.cpp \
     ViewModels/LoadingLabel/loadinglabel.cpp \
     ViewModels/Validators/formvalidator.cpp \
@@ -34,15 +35,16 @@ HEADERS += \
     API/DTO/baseapidto.h \
     API/DTO/logindto.h \
     API/DTO/registratedto.h \
+    API/Endpoints/Users/RepliesHandlers/getverificationcodereplyhandler.h \
     API/Endpoints/Users/RepliesHandlers/loginreplyhandler.h \
     API/Endpoints/Users/RepliesHandlers/registratereplyhandler.h \
     API/Endpoints/Users/RepliesHandlers/verificatereplyhandler.h \
+    API/Endpoints/Users/Requests/getverificationcoderequest.h \
     API/Endpoints/Users/Requests/loginrequest.h \
     API/Endpoints/Users/Requests/registraterequest.h \
     API/Endpoints/Users/Requests/verificationrequest.h \
     API/Endpoints/baseapireplyhandler.h \
     API/Endpoints/baseapirequest.h \
-    ClientCache/cachemanager.h \
     Configuration/configurationmanager.h \
     ViewModels/LoadingLabel/loadinglabel.h \
     ViewModels/Validators/formvalidator.h \
