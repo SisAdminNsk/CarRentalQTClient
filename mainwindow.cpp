@@ -4,7 +4,10 @@
 
 #include <QMessageBox>
 
+#include "API/Endpoints/Cars/Requests/getallcarsrequest.h"
 #include "API/Endpoints/Users/Requests/loginrequest.h"
+
+#include "ViewModels/MainApplicationViewModels/carrentalclientmainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -80,13 +83,31 @@ void MainWindow::OnLoginSuccess(const QString &accessToken){
 
     this->OnLoginRequestFinished();
 
-    QMessageBox::information(nullptr, "Аутентификация", accessToken);
+    //QMessageBox::information(nullptr, "Аутентификация", accessToken);
 
     //mainApplicationWindow = new CarRentalClientWindow();
     //mainApplicationWindow->setWindowTitle("New Window");
     //mainApplicationWindow->show();
 
+    auto getAllCarsRequest = new GetAllCarsRequest(accessToken);
+
+    QObject::connect(getAllCarsRequest, &GetAllCarsRequest::OnFailureSignal, this, &MainWindow::OnGetCarsFailure);
+    QObject::connect(getAllCarsRequest, &GetAllCarsRequest::OnSuccessSingal, this, &MainWindow::OnGetCarsSuccess);
+
+    getAllCarsRequest->SendApiRequest();
+
+    auto carRentalClientMainWindow = new CarRentalClientMainWindow();
+    carRentalClientMainWindow->show();
     this->close();
+}
+
+void MainWindow::OnGetCarsSuccess(const QList<CarDTO>& cars){
+    for(size_t i=0;i<cars.size();i++){
+        auto car = cars[i];
+    }
+}
+void MainWindow::OnGetCarsFailure(const QString& message){
+    QMessageBox::information(nullptr, "Получение авто", message);
 }
 
 void MainWindow::OnLoginError(const QString &message){

@@ -11,8 +11,11 @@ CONFIG += c++17
 
 SOURCES += \
     API/DTO/baseapidto.cpp \
+    API/DTO/cardto.cpp \
     API/DTO/logindto.cpp \
     API/DTO/registratedto.cpp \
+    API/Endpoints/Cars/RepliesHandlers/getallcarsreplyhandler.cpp \
+    API/Endpoints/Cars/Requests/getallcarsrequest.cpp \
     API/Endpoints/Users/RepliesHandlers/getverificationcodereplyhandler.cpp \
     API/Endpoints/Users/RepliesHandlers/loginreplyhandler.cpp \
     API/Endpoints/Users/RepliesHandlers/registratereplyhandler.cpp \
@@ -25,6 +28,12 @@ SOURCES += \
     API/Endpoints/baseapirequest.cpp \
     Configuration/configurationmanager.cpp \
     ViewModels/LoadingLabel/loadinglabel.cpp \
+    ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/activeordersviewmodel.cpp \
+    ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/closedordersviewmodel.cpp \
+    ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/personaldataviewmodel.cpp \
+    ViewModels/MainApplicationViewModels/NestedViewModels/cabinetviewmodel.cpp \
+    ViewModels/MainApplicationViewModels/NestedViewModels/carsviewmodel.cpp \
+    ViewModels/MainApplicationViewModels/carrentalclientmainwindow.cpp \
     ViewModels/Validators/formvalidator.cpp \
     ViewModels/registrationform.cpp \
     ViewModels/verificationform.cpp \
@@ -33,8 +42,11 @@ SOURCES += \
 
 HEADERS += \
     API/DTO/baseapidto.h \
+    API/DTO/cardto.h \
     API/DTO/logindto.h \
     API/DTO/registratedto.h \
+    API/Endpoints/Cars/RepliesHandlers/getallcarsreplyhandler.h \
+    API/Endpoints/Cars/Requests/getallcarsrequest.h \
     API/Endpoints/Users/RepliesHandlers/getverificationcodereplyhandler.h \
     API/Endpoints/Users/RepliesHandlers/loginreplyhandler.h \
     API/Endpoints/Users/RepliesHandlers/registratereplyhandler.h \
@@ -47,12 +59,24 @@ HEADERS += \
     API/Endpoints/baseapirequest.h \
     Configuration/configurationmanager.h \
     ViewModels/LoadingLabel/loadinglabel.h \
+    ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/activeordersviewmodel.h \
+    ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/closedordersviewmodel.h \
+    ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/personaldataviewmodel.h \
+    ViewModels/MainApplicationViewModels/NestedViewModels/cabinetviewmodel.h \
+    ViewModels/MainApplicationViewModels/NestedViewModels/carsviewmodel.h \
+    ViewModels/MainApplicationViewModels/carrentalclientmainwindow.h \
     ViewModels/Validators/formvalidator.h \
     ViewModels/registrationform.h \
     ViewModels/verificationform.h \
     mainwindow.h
 
 FORMS += \
+    ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/activeordersviewmodel.ui \
+    ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/closedordersviewmodel.ui \
+    ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/personaldataviewmodel.ui \
+    ViewModels/MainApplicationViewModels/NestedViewModels/cabinetviewmodel.ui \
+    ViewModels/MainApplicationViewModels/NestedViewModels/carsviewmodel.ui \
+    ViewModels/MainApplicationViewModels/carrentalclientmainwindow.ui \
     ViewModels/registrationform.ui \
     ViewModels/verificationform.ui \
     mainwindow.ui
