@@ -30,8 +30,6 @@ void LoginReplyHandler::Handle(QNetworkReply* reply){
                                  " expected jsonObject is not object. Api request->response missmatch");
     }
 
-    auto authorizationToken = data.toStdString();
-
-    emit this->loginRequest->OnSuccessSignal(QString::fromStdString(authorizationToken));
+    emit this->loginRequest->OnSuccessSignal(LoginResponse(jsonDoc.object()));
     return;
 }

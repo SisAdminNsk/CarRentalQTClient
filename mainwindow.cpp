@@ -8,6 +8,7 @@
 #include "API/Endpoints/Users/Requests/loginrequest.h"
 
 #include "ViewModels/MainApplicationViewModels/carrentalclientmainwindow.h"
+#include "staticuserdata.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -79,25 +80,24 @@ void MainWindow::OnLoginRequestFinished(){
     delete loadingLabel;
 }
 
-void MainWindow::OnLoginSuccess(const QString &accessToken){
+void MainWindow::OnLoginSuccess(const LoginResponse& loginResponse){
 
     this->OnLoginRequestFinished();
 
-    //QMessageBox::information(nullptr, "Аутентификация", accessToken);
+    //auto getAllCarsRequest = new GetAllCarsRequest(accessToken);
 
-    //mainApplicationWindow = new CarRentalClientWindow();
-    //mainApplicationWindow->setWindowTitle("New Window");
-    //mainApplicationWindow->show();
+    //QObject::connect(getAllCarsRequest, &GetAllCarsRequest::OnFailureSignal, this, &MainWindow::OnGetCarsFailure);
+    //QObject::connect(getAllCarsRequest, &GetAllCarsRequest::OnSuccessSingal, this, &MainWindow::OnGetCarsSuccess);
 
-    auto getAllCarsRequest = new GetAllCarsRequest(accessToken);
+    //getAllCarsRequest->SendApiRequest();
 
-    QObject::connect(getAllCarsRequest, &GetAllCarsRequest::OnFailureSignal, this, &MainWindow::OnGetCarsFailure);
-    QObject::connect(getAllCarsRequest, &GetAllCarsRequest::OnSuccessSingal, this, &MainWindow::OnGetCarsSuccess);
+    auto email = ui->usernameLineEdit->text();
 
-    getAllCarsRequest->SendApiRequest();
+    DataCache::instance().setData("userEmail", ui->usernameLineEdit->text());
 
-    auto carRentalClientMainWindow = new CarRentalClientMainWindow();
+    auto carRentalClientMainWindow = new CarRentalClientMainWindow(loginResponse);
     carRentalClientMainWindow->show();
+
     this->close();
 }
 

@@ -12,10 +12,14 @@ CONFIG += c++17
 SOURCES += \
     API/DTO/baseapidto.cpp \
     API/DTO/cardto.cpp \
+    API/DTO/carsharinguserdto.cpp \
     API/DTO/logindto.cpp \
+    API/DTO/loginresponse.cpp \
     API/DTO/registratedto.cpp \
     API/Endpoints/Cars/RepliesHandlers/getallcarsreplyhandler.cpp \
     API/Endpoints/Cars/Requests/getallcarsrequest.cpp \
+    API/Endpoints/CarsharingUsers/RepliesHandlers/getcarsharinguserreplyhandler.cpp \
+    API/Endpoints/CarsharingUsers/Requests/getcarsharinguserrequest.cpp \
     API/Endpoints/Users/RepliesHandlers/getverificationcodereplyhandler.cpp \
     API/Endpoints/Users/RepliesHandlers/loginreplyhandler.cpp \
     API/Endpoints/Users/RepliesHandlers/registratereplyhandler.cpp \
@@ -35,18 +39,24 @@ SOURCES += \
     ViewModels/MainApplicationViewModels/NestedViewModels/carsviewmodel.cpp \
     ViewModels/MainApplicationViewModels/carrentalclientmainwindow.cpp \
     ViewModels/Validators/formvalidator.cpp \
+    ViewModels/Validators/personaldatavalidator.cpp \
     ViewModels/registrationform.cpp \
     ViewModels/verificationform.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    staticuserdata.cpp
 
 HEADERS += \
     API/DTO/baseapidto.h \
     API/DTO/cardto.h \
+    API/DTO/carsharinguserdto.h \
     API/DTO/logindto.h \
+    API/DTO/loginresponse.h \
     API/DTO/registratedto.h \
     API/Endpoints/Cars/RepliesHandlers/getallcarsreplyhandler.h \
     API/Endpoints/Cars/Requests/getallcarsrequest.h \
+    API/Endpoints/CarsharingUsers/RepliesHandlers/getcarsharinguserreplyhandler.h \
+    API/Endpoints/CarsharingUsers/Requests/getcarsharinguserrequest.h \
     API/Endpoints/Users/RepliesHandlers/getverificationcodereplyhandler.h \
     API/Endpoints/Users/RepliesHandlers/loginreplyhandler.h \
     API/Endpoints/Users/RepliesHandlers/registratereplyhandler.h \
@@ -66,9 +76,11 @@ HEADERS += \
     ViewModels/MainApplicationViewModels/NestedViewModels/carsviewmodel.h \
     ViewModels/MainApplicationViewModels/carrentalclientmainwindow.h \
     ViewModels/Validators/formvalidator.h \
+    ViewModels/Validators/personaldatavalidator.h \
     ViewModels/registrationform.h \
     ViewModels/verificationform.h \
-    mainwindow.h
+    mainwindow.h \
+    staticuserdata.h
 
 FORMS += \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/activeordersviewmodel.ui \

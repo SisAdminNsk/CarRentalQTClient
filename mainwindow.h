@@ -7,6 +7,7 @@
 #include <ViewModels/LoadingLabel/loadinglabel.h>
 #include "ViewModels/registrationform.h"
 #include "API/DTO/cardto.h"
+#include "API/DTO/loginresponse.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,7 +23,7 @@ public:
 
 private slots:
     void OnLoginError(const QString &message);
-    void OnLoginSuccess(const QString &message);
+    void OnLoginSuccess(const LoginResponse& loginResponse);
 
     void OnGetCarsSuccess(const QList<CarDTO>& cars);
     void OnGetCarsFailure(const QString& message);

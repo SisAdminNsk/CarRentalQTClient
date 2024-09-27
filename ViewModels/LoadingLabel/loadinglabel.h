@@ -10,6 +10,8 @@ class LoadingLabel : public QLabel
 public:
     LoadingLabel(QSize size, QWidget *parent = nullptr);
     ~LoadingLabel();
+
+    LoadingLabel(QWidget *parent = nullptr);
 private:
     QMovie* gifImage = nullptr;
 };

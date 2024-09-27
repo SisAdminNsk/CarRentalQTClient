@@ -18,8 +18,8 @@
 background-color: rgb(246, 255, 212);
 }</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="4" column="0">
+  <layout class="QGridLayout" name="gridLayout" columnstretch="10,8">
+   <item row="3" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
       <widget class="QLabel" name="label">
@@ -35,7 +35,13 @@ background-color: rgb(246, 255, 212);
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit">
+      <widget class="QLineEdit" name="patronymicEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="styleSheet">
         <string notr="true">QLineEdit {
 	border: 1.5px solid rgb(255,255,255);
@@ -46,7 +52,14 @@ border-radius: 50px;
      </item>
     </layout>
    </item>
-   <item row="10" column="0">
+   <item row="1" column="1">
+    <widget class="QLabel" name="nameClue">
+     <property name="text">
+      <string>Обязательно к заполнению*</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -59,101 +72,14 @@ border-radius: 50px;
      </property>
     </spacer>
    </item>
-   <item row="3" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="label_3">
-       <property name="styleSheet">
-        <string notr="true">QLabel{
-	font-size: 12pt;
-	font-weight: 600;
-}</string>
-       </property>
-       <property name="text">
-        <string>Фамилия:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="surnameEdit">
-       <property name="styleSheet">
-        <string notr="true">QLineEdit {
-	border: 1.5px solid rgb(255,255,255);
-border-radius: 50px;
-}</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="6" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
-     <item>
-      <widget class="QLabel" name="label_5">
-       <property name="styleSheet">
-        <string notr="true">QLabel{
-	font-size: 12pt;
-	font-weight: 600;
-}</string>
-       </property>
-       <property name="text">
-        <string>Электронная почта:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="emailEdit">
-       <property name="styleSheet">
-        <string notr="true">QLineEdit {
-	border: 1.5px solid rgb(255,255,255);
-border-radius: 50px;
-}</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="5" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <item>
-      <widget class="QLabel" name="label_4">
-       <property name="styleSheet">
-        <string notr="true">QLabel{
-	font-size: 12pt;
-	font-weight: 600;
-}</string>
-       </property>
-       <property name="text">
-        <string>Возраст:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="ageEdit">
-       <property name="styleSheet">
-        <string notr="true">QLineEdit {
-	border: 1.5px solid rgb(255,255,255);
-border-radius: 50px;
-}</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="5" column="1">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+   <item row="6" column="1">
+    <widget class="QLabel" name="phoneClue">
+     <property name="text">
+      <string>Обязательно к заполнению*</string>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
+    </widget>
    </item>
-   <item row="2" column="0">
+   <item row="1" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -179,7 +105,7 @@ border-radius: 50px;
        <item>
         <widget class="QLineEdit" name="nameEdit">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -200,6 +126,66 @@ border-radius: 50px;
     </layout>
    </item>
    <item row="8" column="0">
+    <widget class="QPushButton" name="saveChangesButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Сохранить изменения</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLabel" name="ageClue">
+     <property name="text">
+      <string>Обязательно к заполнению*</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	font-size: 12pt;
+	font-weight: 600;
+}</string>
+       </property>
+       <property name="text">
+        <string>Возраст:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="ageEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {
+	border: 1.5px solid rgb(255,255,255);
+border-radius: 50px;
+}</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLabel" name="surnameClue">
+     <property name="text">
+      <string>Обязательно к заполнению*</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0">
     <spacer name="verticalSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -214,6 +200,39 @@ border-radius: 50px;
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="6" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	font-size: 12pt;
+	font-weight: 600;
+}</string>
+       </property>
+       <property name="text">
+        <string>Номер телефона:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="phoneEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {
+	border: 1.5px solid rgb(255,255,255);
+border-radius: 50px;
+}</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item row="0" column="0">
     <spacer name="verticalSpacer_3">
@@ -231,10 +250,10 @@ border-radius: 50px;
      </property>
     </spacer>
    </item>
-   <item row="7" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
+   <item row="5" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
-      <widget class="QLabel" name="label_6">
+      <widget class="QLabel" name="label_5">
        <property name="styleSheet">
         <string notr="true">QLabel{
 	font-size: 12pt;
@@ -242,12 +261,18 @@ border-radius: 50px;
 }</string>
        </property>
        <property name="text">
-        <string>Номер телефона:</string>
+        <string>Электронная почта:</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="phoneNumber">
+      <widget class="QLineEdit" name="emailEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="styleSheet">
         <string notr="true">QLineEdit {
 	border: 1.5px solid rgb(255,255,255);
@@ -258,25 +283,45 @@ border-radius: 50px;
      </item>
     </layout>
    </item>
-   <item row="9" column="0">
-    <widget class="QPushButton" name="saveChangesButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
+   <item row="3" column="1">
+    <widget class="QLabel" name="patronymicClue">
      <property name="text">
-      <string>Сохранить изменения</string>
+      <string>Обязательно к заполнению*</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_7">
-     <property name="text">
-      <string>Заполните все поля, кроме почты</string>
-     </property>
-    </widget>
+   <item row="2" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="styleSheet">
+        <string notr="true">QLabel{
+	font-size: 12pt;
+	font-weight: 600;
+}</string>
+       </property>
+       <property name="text">
+        <string>Фамилия:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="surnameEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLineEdit {
+	border: 1.5px solid rgb(255,255,255);
+border-radius: 50px;
+}</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

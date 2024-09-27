@@ -1,13 +1,14 @@
 #include "cabinetviewmodel.h"
 #include "ui_cabinetviewmodel.h"
 
-CabinetViewModel::CabinetViewModel(QWidget *parent) :
+CabinetViewModel::CabinetViewModel(const LoginResponse& loginResponse, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CabinetViewModel)
 {
     ui->setupUi(this);
 
     this->personalViewModel = new PersonalDataViewModel();
+    this->ui->stackedWidget->setCurrentWidget(personalViewModel);
     this->activeOrdersViewModel = new ActiveOrdersViewModel();
     this->closedOrdersViewModel = new ClosedOrdersViewModel();
 
@@ -20,8 +21,17 @@ CabinetViewModel::CabinetViewModel(QWidget *parent) :
     QObject::connect(ui->closedOrdersButton, &QPushButton::clicked,this,&CabinetViewModel::OnClosedOrdersButtonClicked);
 }
 
+void CabinetViewModel::FillProfileData(const CarsharingUserDTO& carsharingUser){
+    this->personalViewModel->FillProfileData(carsharingUser);
+}
+
+void CabinetViewModel::SetPersonalDataScene(){
+    OnPersonalDataButtonClicked();
+}
+
 void CabinetViewModel::OnPersonalDataButtonClicked(){
     ui->stackedWidget->setCurrentWidget(personalViewModel);
+    personalViewModel->WhenSwappedToView();
 }
 
 void CabinetViewModel::OnActiveOrdersButtonClicked(){

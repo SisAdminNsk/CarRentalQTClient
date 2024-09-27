@@ -4,6 +4,7 @@
 
 #include "API/Endpoints/baseapirequest.h"
 #include "API/DTO/logindto.h"
+#include "API/DTO/loginresponse.h"
 
 class LoginRequest : public BaseApiRequest
 {
@@ -15,7 +16,7 @@ public:
 private:
     LoginDTO loginDTO;
 signals:
-    void OnSuccessSignal(const QString &message);
+    void OnSuccessSignal(const LoginResponse &loginResponse);
     void OnFailureSignal(const QString &message);
 };
 

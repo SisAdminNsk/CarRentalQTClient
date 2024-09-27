@@ -1,7 +1,7 @@
 #include "carsviewmodel.h"
 #include "ui_carsviewmodel.h"
 
-CarsViewModel::CarsViewModel(QWidget *parent) :
+CarsViewModel::CarsViewModel(const LoginResponse& loginResponse, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CarsViewModel)
 {

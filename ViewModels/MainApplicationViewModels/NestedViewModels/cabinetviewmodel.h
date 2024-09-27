@@ -7,6 +7,9 @@
 #include "ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/activeordersviewmodel.h"
 #include "ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/closedordersviewmodel.h"
 
+#include "API/DTO/carsharinguserdto.h"
+#include "API/DTO/loginresponse.h"
+
 namespace Ui {
 class CabinetViewModel;
 }
@@ -16,8 +19,11 @@ class CabinetViewModel : public QWidget
     Q_OBJECT
 
 public:
-    explicit CabinetViewModel(QWidget *parent = nullptr);
+    explicit CabinetViewModel(const LoginResponse& loginResponse, QWidget *parent = nullptr);
     ~CabinetViewModel();
+
+    void SetPersonalDataScene();
+    void FillProfileData(const CarsharingUserDTO& carsharingUser);
 
 private:
     Ui::CabinetViewModel *ui;
