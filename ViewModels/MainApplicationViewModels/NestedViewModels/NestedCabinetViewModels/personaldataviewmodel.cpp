@@ -2,21 +2,35 @@
 #include "ui_personaldataviewmodel.h"
 
 #include "staticuserdata.h"
+#include <QMessageBox>
 
 #include "ViewModels/Validators/personaldatavalidator.h"
 
-PersonalDataViewModel::PersonalDataViewModel(QWidget *parent) :
+PersonalDataViewModel::PersonalDataViewModel(const LoginResponse& loginResponse, QWidget *parent) :
     QWidget(parent),
+    loginResponse(loginResponse),
     ui(new Ui::PersonalDataViewModel)
 {
     ui->setupUi(this);
-
     ui->emailEdit->setEnabled(false);
 
     lastProfileData.Email = DataCache::instance().getData("userEmail");
     lastProfileData.Age = 0;
 
     ConnectWithSignals();
+}
+
+void PersonalDataViewModel::OnSaveChangesRequestStarted(){
+
+    loadingLabel = new LoadingLabel(QSize(22,22), this);
+    ui->loadingMessage->setText("выполняется синхронизация данных с сервером");
+    ui->loadingLayout->insertWidget(1, loadingLabel);
+    ui->loadingMessage->show();
+    loadingLabel->show();
+}
+void PersonalDataViewModel::OnSaveChangesRequestFinished(){
+    delete loadingLabel;
+    ui->loadingMessage->setText("");
 }
 
 void PersonalDataViewModel::WhenSwappedToView(){
@@ -28,6 +42,7 @@ bool PersonalDataViewModel::IsAllFormsValidated(){
 
         auto validCarhsaringUserData = CarsharingUserDTO();
 
+        validCarhsaringUserData.Id = loginResponse.UserId;
         validCarhsaringUserData.Name = ui->nameEdit->text();
         validCarhsaringUserData.Surname = ui->surnameEdit->text();
         validCarhsaringUserData.Email = ui->emailEdit->text();
@@ -59,8 +74,34 @@ void PersonalDataViewModel::ConnectWithSignals(){
 void PersonalDataViewModel::OnSaveChangesButtonClicked(){
     if(IsAllFormsValidated()){
 
-        // выполняем логику
+        createOrUpdateCarsharingUserRequest = new CreateOrUpdateCarsharingUserRequest(loginResponse, lastProfileData);
+
+        QObject::connect(createOrUpdateCarsharingUserRequest,&CreateOrUpdateCarsharingUserRequest::OnSuccessSingal,
+                         this,&PersonalDataViewModel::OnCreateOrUpdateCarsharingUserSuccess);
+
+        QObject::connect(createOrUpdateCarsharingUserRequest,&CreateOrUpdateCarsharingUserRequest::OnFailureSignal,
+                         this,&PersonalDataViewModel::OnCreateOrUpdateCarsharingUserFailure);
+
+        createOrUpdateCarsharingUserRequest->SendApiRequest();
+        OnSaveChangesRequestStarted();
+        // показать что выпонляется синхронизация данных с сервером
     }
+}
+
+void PersonalDataViewModel::OnCreateOrUpdateCarsharingUserSuccess(const QString& message){
+    OnSaveChangesRequestFinished();
+}
+
+void PersonalDataViewModel::OnCreateOrUpdateCarsharingUserFailure(const QList<QString>& errors){
+
+    OnSaveChangesRequestFinished();
+
+    QString message = "";
+    for (const QString &str : errors) {
+        message += str + "\n";
+    }
+
+    QMessageBox::information(this, "Ошибка обновления профиля", message);
 }
 
 void PersonalDataViewModel::ValidateAge(){

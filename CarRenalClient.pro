@@ -13,12 +13,15 @@ SOURCES += \
     API/DTO/baseapidto.cpp \
     API/DTO/cardto.cpp \
     API/DTO/carsharinguserdto.cpp \
+    API/DTO/createorupdatecarsharinguserrequestbody.cpp \
     API/DTO/logindto.cpp \
     API/DTO/loginresponse.cpp \
     API/DTO/registratedto.cpp \
     API/Endpoints/Cars/RepliesHandlers/getallcarsreplyhandler.cpp \
     API/Endpoints/Cars/Requests/getallcarsrequest.cpp \
+    API/Endpoints/CarsharingUsers/RepliesHandlers/createorupdatecarsharinguserreplyhandler.cpp \
     API/Endpoints/CarsharingUsers/RepliesHandlers/getcarsharinguserreplyhandler.cpp \
+    API/Endpoints/CarsharingUsers/Requests/createorupdatecarsharinguserrequest.cpp \
     API/Endpoints/CarsharingUsers/Requests/getcarsharinguserrequest.cpp \
     API/Endpoints/Users/RepliesHandlers/getverificationcodereplyhandler.cpp \
     API/Endpoints/Users/RepliesHandlers/loginreplyhandler.cpp \
@@ -50,12 +53,15 @@ HEADERS += \
     API/DTO/baseapidto.h \
     API/DTO/cardto.h \
     API/DTO/carsharinguserdto.h \
+    API/DTO/createorupdatecarsharinguserrequestbody.h \
     API/DTO/logindto.h \
     API/DTO/loginresponse.h \
     API/DTO/registratedto.h \
     API/Endpoints/Cars/RepliesHandlers/getallcarsreplyhandler.h \
     API/Endpoints/Cars/Requests/getallcarsrequest.h \
+    API/Endpoints/CarsharingUsers/RepliesHandlers/createorupdatecarsharinguserreplyhandler.h \
     API/Endpoints/CarsharingUsers/RepliesHandlers/getcarsharinguserreplyhandler.h \
+    API/Endpoints/CarsharingUsers/Requests/createorupdatecarsharinguserrequest.h \
     API/Endpoints/CarsharingUsers/Requests/getcarsharinguserrequest.h \
     API/Endpoints/Users/RepliesHandlers/getverificationcodereplyhandler.h \
     API/Endpoints/Users/RepliesHandlers/loginreplyhandler.h \

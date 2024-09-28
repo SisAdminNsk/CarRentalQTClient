@@ -7,7 +7,7 @@ CabinetViewModel::CabinetViewModel(const LoginResponse& loginResponse, QWidget *
 {
     ui->setupUi(this);
 
-    this->personalViewModel = new PersonalDataViewModel();
+    this->personalViewModel = new PersonalDataViewModel(loginResponse);
     this->ui->stackedWidget->setCurrentWidget(personalViewModel);
     this->activeOrdersViewModel = new ActiveOrdersViewModel();
     this->closedOrdersViewModel = new ClosedOrdersViewModel();
