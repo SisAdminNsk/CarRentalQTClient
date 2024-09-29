@@ -1,6 +1,8 @@
 #include "carrentalclientmainwindow.h"
 #include "ui_carrentalclientmainwindow.h"
 
+#include <QMessageBox>
+
 CarRentalClientMainWindow::CarRentalClientMainWindow(const LoginResponse& loginResponse, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::CarRentalClientMainWindow)
@@ -90,7 +92,12 @@ void CarRentalClientMainWindow::WhenGettingCarsharingUserWasSuccess(const Carsha
 void CarRentalClientMainWindow::WhenGettingCarsharingUserWasFailure(const QList<QString>& errors){
     OnFinishedGettingProfileData();
 
-    // сказать что форму нужно заполнить
+    QString message = "";
+    for (const QString &str : errors) {
+        message += str + "\n";
+    }
+
+    QMessageBox::information(this, "Ошибка получения данных профиля", message);
 }
 
 void CarRentalClientMainWindow::OnCabinetButtonClicked(){

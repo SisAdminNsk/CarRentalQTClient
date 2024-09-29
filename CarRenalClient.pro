@@ -34,7 +34,9 @@ SOURCES += \
     API/Endpoints/baseapireplyhandler.cpp \
     API/Endpoints/baseapirequest.cpp \
     Configuration/configurationmanager.cpp \
+    Helpers/fromurlimageloader.cpp \
     ViewModels/LoadingLabel/loadinglabel.cpp \
+    ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carcardviewmodel.cpp \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/activeordersviewmodel.cpp \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/closedordersviewmodel.cpp \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/personaldataviewmodel.cpp \
@@ -74,7 +76,9 @@ HEADERS += \
     API/Endpoints/baseapireplyhandler.h \
     API/Endpoints/baseapirequest.h \
     Configuration/configurationmanager.h \
+    Helpers/fromurlimageloader.h \
     ViewModels/LoadingLabel/loadinglabel.h \
+    ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carcardviewmodel.h \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/activeordersviewmodel.h \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/closedordersviewmodel.h \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/personaldataviewmodel.h \
@@ -89,6 +93,7 @@ HEADERS += \
     staticuserdata.h
 
 FORMS += \
+    ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carcardviewmodel.ui \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/activeordersviewmodel.ui \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/closedordersviewmodel.ui \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/personaldataviewmodel.ui \
@@ -106,3 +111,15 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES += \
+    Media/carsharingLogo.png \
+    Media/email.png \
+    Media/lexus_lx450_black.jpg \
+    Media/loading.gif \
+    Media/loading1.gif \
+    Media/loading2.gif \
+    Media/loginIcon.png \
+    Media/passwordIcon.png \
+    Media/usernameIcon.png \
+    Media/verificationIcon.png

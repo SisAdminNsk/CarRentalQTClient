@@ -112,12 +112,10 @@ void PersonalDataViewModel::ValidateAge(){
 
     if(isValid){
         isValidAge = true;
-        ui->ageClue->hide();
         ui->ageEdit->setStyleSheet(lineEditValidStyleSheet);
     }
     else{
         isValidAge = false;
-        ui->ageClue->show();
         ui->ageEdit->setStyleSheet(lineEditNotValidStyleSheet);
     }
 }
@@ -130,12 +128,10 @@ void PersonalDataViewModel::ValidatePhone(){
 
     if(isValid){
         isValidPhone = true;
-        ui->phoneClue->hide();
         ui->phoneEdit->setStyleSheet(lineEditValidStyleSheet);
     }
     else{
         isValidPhone = false;
-        ui->phoneClue->show();
         ui->phoneEdit->setStyleSheet(lineEditNotValidStyleSheet);
     }
 }
@@ -148,12 +144,10 @@ void PersonalDataViewModel::ValidateName(){
 
     if(isValid){
         isValidName = true;
-        ui->nameClue->hide();
         ui->nameEdit->setStyleSheet(lineEditValidStyleSheet);
     }
     else{
         isValidName = false;
-        ui->nameClue->show();
         ui->nameEdit->setStyleSheet(lineEditNotValidStyleSheet);
     }
 }
@@ -166,12 +160,10 @@ void PersonalDataViewModel::ValidateSurname(){
 
     if(isValid){
         isValidSurname = true;
-        ui->surnameClue->hide();
         ui->surnameEdit->setStyleSheet(lineEditValidStyleSheet);
     }
     else{
         isValidSurname = false;
-        ui->surnameClue->show();
         ui->surnameEdit->setStyleSheet(lineEditNotValidStyleSheet);
     }
 }
@@ -184,12 +176,10 @@ void PersonalDataViewModel::ValidatePatronymic(){
 
     if(isValid){
         isValidPatronymic = true;
-        ui->patronymicClue->hide();
         ui->patronymicEdit->setStyleSheet(lineEditValidStyleSheet);
     }
     else{
         isValidPatronymic = false;
-        ui->patronymicClue->show();
         ui->patronymicEdit->setStyleSheet(lineEditNotValidStyleSheet);
     }
 }
