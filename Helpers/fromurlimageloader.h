@@ -21,17 +21,20 @@ class FromURLImageLoader : public QObject
 public:
     explicit FromURLImageLoader(QProgressBar *progressBar, QObject *parent = nullptr);
     void LoadImage(const QString &urlString, CarCardViewModel *carCard);
+    void LoadImagesWithOrderSaving(const QList<QString>& urls, QList<CarCardViewModel*> carCards);
     void SetTargetsForDownloadCount(int count);
 private:
-
+    QMap<QString, int> carImageToPosition;
     QList<CarCardViewModel*> carCards;
     QNetworkAccessManager manager;
     QProgressBar *progressBar;
     int totalImages = 0;
     int loadedImages = 0;
     QMutex mutex;
+
+    void SendRequest(const QString& urlString, CarCardViewModel* carCard, bool keepOrder = false);
 private slots:
-    void OnImageDownloaded(QNetworkReply *reply, CarCardViewModel *carCard);
+    void OnImageDownloaded(QNetworkReply *reply, CarCardViewModel *carCard, bool keepOrder);
 signals:
     void OnAllImagesDownloaded(QList<CarCardViewModel*> carCards);
 };

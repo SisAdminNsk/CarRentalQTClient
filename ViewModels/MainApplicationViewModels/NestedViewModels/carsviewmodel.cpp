@@ -13,41 +13,110 @@ CarsViewModel::CarsViewModel(const LoginResponse& loginResponse, QWidget *parent
 
     ui->setupUi(this);
 
-    getAllCarsRequest = new GetAllCarsRequest(loginResponse.Token);
+    ConnectWithFilterButtonsSignals();
 
-    QObject::connect(getAllCarsRequest,&GetAllCarsRequest::OnSuccessSingal,this,&CarsViewModel::OnGettingAllCarsSuccess);
-    QObject::connect(getAllCarsRequest,&GetAllCarsRequest::OnFailureSignal, this,&CarsViewModel::OnGettingAllCarsFailure);
-    getAllCarsRequest->SendApiRequest();
-    // показать выполнения загрузки
+    auto getCarsDTO = GetCarsDTO(currentPage, pageSize, ascendingSortOrder, "BaseRentalPricePerHour");
+    prevFilterName = ui->cheaperFirstRadioButton->objectName();
+    ui->cheaperFirstRadioButton->setChecked(true);
 
-    // тестовый код
-    //for(size_t i=0;i<8;i++){
-        //QString imagePath = ":/images/Media/lexus_lx450_black.jpg";
-        //QString description = QString("Product %1").arg(i + 1);
-        //double price = (i + 1) * 10.0;
+    getCarsRequest = new GetCarsRequest(loginResponse.Token, getCarsDTO, this);
 
-        //auto carDto = CarDTO();
-        //auto carCard = new CarCardViewModel(carDto, QSize(350,350));
-        //CarCard *card = new CarCard(imagePath, description, price, QSize(400,400));
-        //AddCar(carCard);
-    //}
+    QObject::connect(getCarsRequest,&GetCarsRequest::OnSuccessSingal,this,&CarsViewModel::OnGettingCarsSuccess);
+    QObject::connect(getCarsRequest,&GetCarsRequest::OnFailureSignal, this,&CarsViewModel::OnGettingCarsFailure);
+
+    getCarsRequest->SendApiRequest();
 }
 
-void CarsViewModel::OnGettingAllCarsSuccess(const QList<CarDTO> &replyBody){
+void CarsViewModel::ConnectWithFilterButtonsSignals(){
 
+    QObject::connect(ui->cheaperFirstRadioButton, &QRadioButton::clicked, this, &CarsViewModel::OnCheaperFirstFilterClicked);
+    QObject::connect(ui->expensiveFirstRadioButton, &QRadioButton::clicked, this, &CarsViewModel::OnMoreExpensiveFirstFilterClicked);
+    QObject::connect(ui->morePowerFirstRadioButton, &QRadioButton::clicked, this, &CarsViewModel::OnMostPowerFilterClicked);
+    QObject::connect(ui->classLowerFirstRadioButton, &QRadioButton::clicked, this, &CarsViewModel::OnLowestClassFilterClicked);
+    QObject::connect(ui->classHigherFirstRadioButton, &QRadioButton::clicked, this, &CarsViewModel::OnHigerClassFilterClicked);
+}
 
+void CarsViewModel::OnGettingsCarsStarted(){
+    ui->cheaperFirstRadioButton->setEnabled(false);
+    ui->expensiveFirstRadioButton->setEnabled(false);
+    ui->classHigherFirstRadioButton->setEnabled(false);
+    ui->classLowerFirstRadioButton->setEnabled(false);
+    ui->morePowerFirstRadioButton->setEnabled(false);
+    ui->showMoreButton->setEnabled(false);
+}
+
+void CarsViewModel::OnGettingsCarsFinished(){
+    ui->cheaperFirstRadioButton->setEnabled(true);
+    ui->expensiveFirstRadioButton->setEnabled(true);
+    ui->classHigherFirstRadioButton->setEnabled(true);
+    ui->classLowerFirstRadioButton->setEnabled(true);
+    ui->morePowerFirstRadioButton->setEnabled(true);
+    ui->showMoreButton->setEnabled(true);
+}
+
+void CarsViewModel::OnFilterClicked(
+    QRadioButton* filterSelectorButton,
+    const QString& sortingOrder,
+    const QString& sortingByFiled)
+{
+    if(filterSelectorButton->objectName() != prevFilterName){
+        OnGettingsCarsStarted();
+        auto getCars = GetCarsDTO(currentPage, pageSize, sortingOrder, sortingByFiled);
+        getCarsRequest->SetQueryString(getCars);
+        getCarsRequest->SendApiRequest();
+        ClearGridFromCarCards();
+        this->cars.clear();
+        this->currentPage = 1;
+        prevFilterName = filterSelectorButton->objectName();
+    }
+}
+
+void CarsViewModel::OnCheaperFirstFilterClicked(){
+
+    OnFilterClicked(ui->cheaperFirstRadioButton,ascendingSortOrder, "BaseRentalPricePerHour");
+}
+
+void CarsViewModel::OnMoreExpensiveFirstFilterClicked(){
+
+    OnFilterClicked(ui->expensiveFirstRadioButton, descendingSortOrder, "BaseRentalPricePerHour");
+}
+
+void CarsViewModel::OnMostPowerFilterClicked(){
+
+    OnFilterClicked(ui->morePowerFirstRadioButton, descendingSortOrder, "Power");
+}
+
+void CarsViewModel::OnHigerClassFilterClicked(){
+    OnFilterClicked(ui->classHigherFirstRadioButton, descendingSortOrder, "CarClass");
+}
+
+void CarsViewModel::OnLowestClassFilterClicked(){
+    OnFilterClicked(ui->classLowerFirstRadioButton, ascendingSortOrder, "CarClass");
+}
+
+void CarsViewModel::OnGettingCarsSuccess(const GetCarsResponse& responseBody){
     ui->progressBar->reset();
     ui->progressBar->show();
 
     urlImageLoader = new FromURLImageLoader(ui->progressBar);
-    urlImageLoader->SetTargetsForDownloadCount(replyBody.size());
+    urlImageLoader->SetTargetsForDownloadCount(responseBody.Cars.size());
 
     QObject::connect(urlImageLoader,&FromURLImageLoader::OnAllImagesDownloaded, this, &CarsViewModel::OnAllImagesDownloaded);
 
-    for(size_t i=0;i<replyBody.size();i++){
-        auto carCard = new CarCardViewModel(replyBody[i], QSize(350,350));
-        urlImageLoader->LoadImage(replyBody[i].CarImageURI, carCard);
+    QList<QString> urls;
+    QList<CarCardViewModel*> carCards;
+
+    for(size_t i=0;i<responseBody.Cars.size();i++){
+        urls.push_back(responseBody.Cars[i].CarImageURI);
+        carCards.push_back(new CarCardViewModel(responseBody.Cars[i], QSize(cardWidth, cardHeight),this));
     }
+
+    urlImageLoader->LoadImagesWithOrderSaving(urls, carCards);
+}
+
+void CarsViewModel::OnGettingCarsFailure(const QString& errorMessage){
+    QMessageBox::information(this, "Ошибка получения каталога авто", errorMessage);
+    OnGettingsCarsFinished();
 }
 
 void CarsViewModel::OnAllImagesDownloaded(QList<CarCardViewModel*> carCards){
@@ -58,12 +127,7 @@ void CarsViewModel::OnAllImagesDownloaded(QList<CarCardViewModel*> carCards){
 
     ui->progressBar->hide();
     ui->progressBar->reset();
-}
-
-
-void CarsViewModel::OnGettingAllCarsFailure(const QString& error){
-
-    QMessageBox::information(this, "Ошибка получения каталога авто", error);
+    OnGettingsCarsFinished();
 }
 
 void CarsViewModel::AddCarToGrid(CarCardViewModel *carCard){
@@ -86,15 +150,23 @@ void CarsViewModel::AddCar(CarCardViewModel *carCard){
     cars.push_back(carCard);
 }
 
-void CarsViewModel::resizeEvent(QResizeEvent *event){
+void CarsViewModel::ResetGridParameters(){
 
     currentRow = 0;
     currentColumn = 0;
     currentRowWidth = 0;
+}
 
-    QLayoutItem *item;
-    while ((item = ui->gridLayout_2->takeAt(0)) != nullptr) {
+void CarsViewModel::resizeEvent(QResizeEvent *event){
+
+    ResetGridParameters();
+
+    int count = ui->gridLayout_2->count();
+
+    for (int i = count - 1; i >= 0; --i){
+        QLayoutItem *item = ui->gridLayout_2->itemAt(i);
         ui->gridLayout_2->removeItem(item);
+        ui->gridLayout_2->removeWidget(item->widget());
     }
 
     for(size_t i=0;i<cars.size();i++){
@@ -102,6 +174,20 @@ void CarsViewModel::resizeEvent(QResizeEvent *event){
     }
 
     QWidget::resizeEvent(event);
+}
+
+void CarsViewModel::ClearGridFromCarCards(){
+
+    ResetGridParameters();
+
+    int count = ui->gridLayout_2->count();
+
+    for (int i = count - 1; i >= 0; --i) {
+        QLayoutItem *item = ui->gridLayout_2->itemAt(i);
+        ui->gridLayout_2->removeItem( item );
+        ui->gridLayout_2->removeWidget(item->widget());
+        item->widget()->deleteLater();
+    }
 }
 
 CarsViewModel::~CarsViewModel()

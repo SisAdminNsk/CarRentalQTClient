@@ -14,11 +14,15 @@ SOURCES += \
     API/DTO/cardto.cpp \
     API/DTO/carsharinguserdto.cpp \
     API/DTO/createorupdatecarsharinguserrequestbody.cpp \
+    API/DTO/getcarsdto.cpp \
+    API/DTO/getcarsresponse.cpp \
     API/DTO/logindto.cpp \
     API/DTO/loginresponse.cpp \
     API/DTO/registratedto.cpp \
     API/Endpoints/Cars/RepliesHandlers/getallcarsreplyhandler.cpp \
+    API/Endpoints/Cars/RepliesHandlers/getcarsreplyhandler.cpp \
     API/Endpoints/Cars/Requests/getallcarsrequest.cpp \
+    API/Endpoints/Cars/Requests/getcarsrequest.cpp \
     API/Endpoints/CarsharingUsers/RepliesHandlers/createorupdatecarsharinguserreplyhandler.cpp \
     API/Endpoints/CarsharingUsers/RepliesHandlers/getcarsharinguserreplyhandler.cpp \
     API/Endpoints/CarsharingUsers/Requests/createorupdatecarsharinguserrequest.cpp \
@@ -56,11 +60,15 @@ HEADERS += \
     API/DTO/cardto.h \
     API/DTO/carsharinguserdto.h \
     API/DTO/createorupdatecarsharinguserrequestbody.h \
+    API/DTO/getcarsdto.h \
+    API/DTO/getcarsresponse.h \
     API/DTO/logindto.h \
     API/DTO/loginresponse.h \
     API/DTO/registratedto.h \
     API/Endpoints/Cars/RepliesHandlers/getallcarsreplyhandler.h \
+    API/Endpoints/Cars/RepliesHandlers/getcarsreplyhandler.h \
     API/Endpoints/Cars/Requests/getallcarsrequest.h \
+    API/Endpoints/Cars/Requests/getcarsrequest.h \
     API/Endpoints/CarsharingUsers/RepliesHandlers/createorupdatecarsharinguserreplyhandler.h \
     API/Endpoints/CarsharingUsers/RepliesHandlers/getcarsharinguserreplyhandler.h \
     API/Endpoints/CarsharingUsers/Requests/createorupdatecarsharinguserrequest.h \
@@ -115,7 +123,6 @@ RESOURCES += \
 DISTFILES += \
     Media/carsharingLogo.png \
     Media/email.png \
-    Media/lexus_lx450_black.jpg \
     Media/loading.gif \
     Media/loading1.gif \
     Media/loading2.gif \

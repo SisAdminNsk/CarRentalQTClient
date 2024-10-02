@@ -59,35 +59,35 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_2">
+        <widget class="QRadioButton" name="cheaperFirstRadioButton">
          <property name="text">
           <string>Сначала дешевле</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton">
+        <widget class="QRadioButton" name="expensiveFirstRadioButton">
          <property name="text">
           <string>Сначала дороже</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_3">
+        <widget class="QRadioButton" name="morePowerFirstRadioButton">
          <property name="text">
           <string>Сначала мощнее</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_4">
+        <widget class="QRadioButton" name="classHigherFirstRadioButton">
          <property name="text">
           <string>По возрастанию класса</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_5">
+        <widget class="QRadioButton" name="classLowerFirstRadioButton">
          <property name="text">
           <string>По убыванию класса</string>
          </property>
@@ -113,7 +113,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="showMoreButton">
        <property name="text">
         <string>Показать еще</string>
        </property>
