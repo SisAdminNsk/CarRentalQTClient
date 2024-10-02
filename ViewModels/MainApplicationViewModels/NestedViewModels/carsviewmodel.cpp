@@ -15,16 +15,30 @@ CarsViewModel::CarsViewModel(const LoginResponse& loginResponse, QWidget *parent
 
     ConnectWithFilterButtonsSignals();
 
-    auto getCarsDTO = GetCarsDTO(currentPage, pageSize, ascendingSortOrder, "BaseRentalPricePerHour");
+    QObject::connect(ui->showMoreButton, &QPushButton::clicked, this, &CarsViewModel::OnShowMoreCarsButtonClicked);
+
+    auto getCars = GetCarsDTO(currentPage, pageSize, ascendingSortOrder, "BaseRentalPricePerHour");
+    currentSortOrder = ascendingSortOrder;
+    currentSortByField = "BaseRentalPricePerHour";
+
     prevFilterName = ui->cheaperFirstRadioButton->objectName();
     ui->cheaperFirstRadioButton->setChecked(true);
 
-    getCarsRequest = new GetCarsRequest(loginResponse.Token, getCarsDTO, this);
+    getCarsRequest = new GetCarsRequest(loginResponse.Token, getCars, this);
 
     QObject::connect(getCarsRequest,&GetCarsRequest::OnSuccessSingal,this,&CarsViewModel::OnGettingCarsSuccess);
     QObject::connect(getCarsRequest,&GetCarsRequest::OnFailureSignal, this,&CarsViewModel::OnGettingCarsFailure);
 
     getCarsRequest->SendApiRequest();
+}
+
+void CarsViewModel::OnShowMoreCarsButtonClicked(){
+    if(!(currentPage * pageSize >= totalCarsOnServer)){
+        currentPage++;
+        auto getCars = GetCarsDTO(currentPage, pageSize, currentSortOrder, currentSortByField);
+        getCarsRequest->SetQueryString(getCars);
+        getCarsRequest->SendApiRequest();
+    }
 }
 
 void CarsViewModel::ConnectWithFilterButtonsSignals(){
@@ -57,16 +71,19 @@ void CarsViewModel::OnGettingsCarsFinished(){
 void CarsViewModel::OnFilterClicked(
     QRadioButton* filterSelectorButton,
     const QString& sortingOrder,
-    const QString& sortingByFiled)
+    const QString& sortingByField)
 {
     if(filterSelectorButton->objectName() != prevFilterName){
         OnGettingsCarsStarted();
-        auto getCars = GetCarsDTO(currentPage, pageSize, sortingOrder, sortingByFiled);
+        this->currentPage = 1;
+        auto getCars = GetCarsDTO(currentPage, pageSize, sortingOrder, sortingByField);
         getCarsRequest->SetQueryString(getCars);
         getCarsRequest->SendApiRequest();
         ClearGridFromCarCards();
         this->cars.clear();
-        this->currentPage = 1;
+        currentSortByField = sortingByField;
+        currentSortOrder = sortingOrder;
+
         prevFilterName = filterSelectorButton->objectName();
     }
 }
@@ -112,6 +129,8 @@ void CarsViewModel::OnGettingCarsSuccess(const GetCarsResponse& responseBody){
     }
 
     urlImageLoader->LoadImagesWithOrderSaving(urls, carCards);
+
+    totalCarsOnServer = responseBody.TotalItem;
 }
 
 void CarsViewModel::OnGettingCarsFailure(const QString& errorMessage){

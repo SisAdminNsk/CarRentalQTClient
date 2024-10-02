@@ -41,8 +41,12 @@ private:
     int currentColumn = 0;
     int currentRowWidth = 0;
 
+    int totalCarsOnServer = 0;
     int currentPage = 1;
     const int pageSize = 8;
+
+    QString currentSortOrder;
+    QString currentSortByField;
 
     const QString ascendingSortOrder = "ascending";
     const QString descendingSortOrder = "descending";
@@ -62,6 +66,8 @@ private slots:
     void OnGettingCarsFailure(const QString& errorMessage);
 
     void OnAllImagesDownloaded(QList<CarCardViewModel*> carCards);
+
+    void OnShowMoreCarsButtonClicked();
 
     void OnCheaperFirstFilterClicked();
     void OnMoreExpensiveFirstFilterClicked();
