@@ -10,12 +10,17 @@
 #include "ViewModels/MainApplicationViewModels/carrentalclientmainwindow.h"
 #include "staticuserdata.h"
 
+#include "ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carorderform.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     Setup();
+
+    auto carOrderForm = new CarOrderForm();
+    carOrderForm->show();
 }
 
 void MainWindow::Setup(){

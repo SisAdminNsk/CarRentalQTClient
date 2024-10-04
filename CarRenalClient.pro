@@ -41,6 +41,7 @@ SOURCES += \
     Helpers/fromurlimageloader.cpp \
     ViewModels/LoadingLabel/loadinglabel.cpp \
     ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carcardviewmodel.cpp \
+    ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carorderform.cpp \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/activeordersviewmodel.cpp \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/closedordersviewmodel.cpp \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/personaldataviewmodel.cpp \
@@ -87,6 +88,7 @@ HEADERS += \
     Helpers/fromurlimageloader.h \
     ViewModels/LoadingLabel/loadinglabel.h \
     ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carcardviewmodel.h \
+    ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carorderform.h \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/activeordersviewmodel.h \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/closedordersviewmodel.h \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/personaldataviewmodel.h \
@@ -102,6 +104,7 @@ HEADERS += \
 
 FORMS += \
     ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carcardviewmodel.ui \
+    ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carorderform.ui \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/activeordersviewmodel.ui \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/closedordersviewmodel.ui \
     ViewModels/MainApplicationViewModels/NestedViewModels/NestedCabinetViewModels/personaldataviewmodel.ui \
