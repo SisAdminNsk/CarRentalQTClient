@@ -61,9 +61,4 @@ void VerificateReplyHandler::Process400Error(QNetworkReply* reply){
     }
 
     throw std::runtime_error("Undocumented exception occures on Process400Error at VerificateReplyHandler.Handle()");
-
 }
-
-
-
-

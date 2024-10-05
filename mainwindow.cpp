@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     Setup();
 
-    auto carOrderForm = new CarOrderForm();
+    auto carOrderForm = new CarOrderForm(CarDTO(), CarsharingUserDTO(), QDate());
     carOrderForm->show();
 }
 
@@ -89,13 +89,6 @@ void MainWindow::OnLoginSuccess(const LoginResponse& loginResponse){
 
     this->OnLoginRequestFinished();
 
-    //auto getAllCarsRequest = new GetAllCarsRequest(accessToken);
-
-    //QObject::connect(getAllCarsRequest, &GetAllCarsRequest::OnFailureSignal, this, &MainWindow::OnGetCarsFailure);
-    //QObject::connect(getAllCarsRequest, &GetAllCarsRequest::OnSuccessSingal, this, &MainWindow::OnGetCarsSuccess);
-
-    //getAllCarsRequest->SendApiRequest();
-
     auto email = ui->usernameLineEdit->text();
 
     DataCache::instance().setData("userEmail", ui->usernameLineEdit->text());
@@ -133,5 +126,3 @@ MainWindow::~MainWindow()
     delete ui;
     delete registrationForm;
 }
-
-
