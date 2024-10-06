@@ -11,6 +11,7 @@
 #include "staticuserdata.h"
 
 #include "ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carorderform.h"
+#include "API/Endpoints/CarOrders/Requests/getservertimerequest.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,8 +20,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     Setup();
 
-    auto carOrderForm = new CarOrderForm(CarDTO(), CarsharingUserDTO(), QDate());
-    carOrderForm->show();
+    auto getServerTimeRequest = new GetServerTimeRequest("",7);
+    getServerTimeRequest->SendApiRequest();
+
+    //auto carOrderForm = new CarOrderForm(CarDTO(), CarsharingUserDTO(), QDateTime());
+    //carOrderForm->show();
 }
 
 void MainWindow::Setup(){

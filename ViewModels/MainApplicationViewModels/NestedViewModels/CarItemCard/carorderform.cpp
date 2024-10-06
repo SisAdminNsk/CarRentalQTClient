@@ -4,11 +4,11 @@
 CarOrderForm::CarOrderForm(
     const CarDTO& car,
     const CarsharingUserDTO& carsharingUser,
-    const QDate& serverDate,
+    const QDateTime& serverDateTime,
     QWidget *parent) :
 
     QMainWindow(parent),
-    serverDate(serverDate),
+    serverDateTime(serverDateTime),
     car(car),
     carsharingUser(carsharingUser),
     ui(new Ui::CarOrderForm)
@@ -26,8 +26,8 @@ void CarOrderForm::SetupInputWidgets(){
     ui->startLeaseDatePicker->setCalendarPopup(true);
     ui->endLeaseDatePicker->setCalendarPopup(true);
 
-    ui->startLeaseDatePicker->setDateRange(serverDate, QDate(2100,12,31));
-    ui->endLeaseDatePicker->setDateRange(serverDate, QDate(2100,12,31));
+    ui->endLeaseDatePicker->setMinimumDate(serverDateTime.date());
+    ui->startLeaseDatePicker->setMinimumDate(serverDateTime.date());
 
     for (int var = 0; var < 24; ++var) {
         ui->startLeaseTimePicker->addItem(QString::number(var) + ":" + "00");
@@ -55,6 +55,12 @@ void CarOrderForm::OnStartOfLeaseDateSelected(const QDate& date){
 }
 
 void CarOrderForm::OnEndOfLeaseDateSelected(const QDate& date){
+
+    if(ui->startLeaseDatePicker->date() < ui->endLeaseDatePicker->date()){
+        OnStartOfLeaseTimeSelected(0);
+    }else{
+        OnStartOfLeaseTimeSelected(ui->startLeaseTimePicker->currentIndex());
+    }
 
 }
 

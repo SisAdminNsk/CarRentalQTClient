@@ -19,6 +19,8 @@ SOURCES += \
     API/DTO/logindto.cpp \
     API/DTO/loginresponse.cpp \
     API/DTO/registratedto.cpp \
+    API/Endpoints/CarOrders/RepliesHandlers/getservertimereplyhandler.cpp \
+    API/Endpoints/CarOrders/Requests/getservertimerequest.cpp \
     API/Endpoints/Cars/RepliesHandlers/getallcarsreplyhandler.cpp \
     API/Endpoints/Cars/RepliesHandlers/getcarsreplyhandler.cpp \
     API/Endpoints/Cars/Requests/getallcarsrequest.cpp \
@@ -66,6 +68,8 @@ HEADERS += \
     API/DTO/logindto.h \
     API/DTO/loginresponse.h \
     API/DTO/registratedto.h \
+    API/Endpoints/CarOrders/RepliesHandlers/getservertimereplyhandler.h \
+    API/Endpoints/CarOrders/Requests/getservertimerequest.h \
     API/Endpoints/Cars/RepliesHandlers/getallcarsreplyhandler.h \
     API/Endpoints/Cars/RepliesHandlers/getcarsreplyhandler.h \
     API/Endpoints/Cars/Requests/getallcarsrequest.h \

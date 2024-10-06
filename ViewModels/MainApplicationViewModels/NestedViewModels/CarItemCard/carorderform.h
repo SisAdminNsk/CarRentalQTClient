@@ -18,7 +18,7 @@ public:
     (
         const CarDTO& car,
         const CarsharingUserDTO& carsharingUser,
-        const QDate& serverDate,
+        const QDateTime& serverDate,
         QWidget *parent = nullptr
     );
 
@@ -30,7 +30,7 @@ private:
     void SetupInputWidgets();
     void SetupWindow();
 
-    QDate serverDate;
+    QDateTime serverDateTime;
     CarDTO car;
     CarsharingUserDTO carsharingUser;
 
@@ -42,6 +42,7 @@ private slots:
 
     void OnStartOfLeaseTimeSelected(const int currentSelectedIndex);
     void OnEndOfLeaseTimeSelected(const int currentSelectedIndex);
+
 };
 
 #endif // CARORDERFORM_H
