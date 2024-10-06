@@ -23,7 +23,13 @@ private:
     CarDTO carDto;
     Ui::CarCardViewModel *ui;
 
+    void Setup();
     void InitializeCarData();
+private slots:
+    void OnCreateCarOrderClicked();
+
+    void OnSuccessGettingServerDateTime(const QDateTime& serverTime);
+    void OnFailureGettingsServerDateTime(const QString& errorMessage);
 };
 
 #endif // CARCARDVIEWMODEL_H

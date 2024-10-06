@@ -90,6 +90,7 @@ void PersonalDataViewModel::OnSaveChangesButtonClicked(){
 
 void PersonalDataViewModel::OnCreateOrUpdateCarsharingUserSuccess(const QString& message){
     OnSaveChangesRequestFinished();
+    DataCache::instance().SaveCarhsaringUserProfile(lastProfileData);
 }
 
 void PersonalDataViewModel::OnCreateOrUpdateCarsharingUserFailure(const QList<QString>& errors){
@@ -196,6 +197,7 @@ void PersonalDataViewModel::FillProfileData(const CarsharingUserDTO& carsharingU
     ValidateAllForms();
 
     this->lastProfileData = carsharingUser;
+    DataCache::instance().SaveCarhsaringUserProfile(carsharingUser);
 }
 
 void PersonalDataViewModel::ValidateAllForms(){

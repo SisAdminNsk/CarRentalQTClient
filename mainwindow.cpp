@@ -4,14 +4,10 @@
 
 #include <QMessageBox>
 
-#include "API/Endpoints/Cars/Requests/getallcarsrequest.h"
 #include "API/Endpoints/Users/Requests/loginrequest.h"
 
 #include "ViewModels/MainApplicationViewModels/carrentalclientmainwindow.h"
 #include "staticuserdata.h"
-
-#include "ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carorderform.h"
-#include "API/Endpoints/CarOrders/Requests/getservertimerequest.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,12 +15,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     Setup();
-
-    auto getServerTimeRequest = new GetServerTimeRequest("",7);
-    getServerTimeRequest->SendApiRequest();
-
-    //auto carOrderForm = new CarOrderForm(CarDTO(), CarsharingUserDTO(), QDateTime());
-    //carOrderForm->show();
 }
 
 void MainWindow::Setup(){
@@ -96,6 +86,7 @@ void MainWindow::OnLoginSuccess(const LoginResponse& loginResponse){
     auto email = ui->usernameLineEdit->text();
 
     DataCache::instance().setData("userEmail", ui->usernameLineEdit->text());
+    DataCache::instance().SaveLoginCredentials(loginResponse);
 
     auto carRentalClientMainWindow = new CarRentalClientMainWindow(loginResponse);
     carRentalClientMainWindow->show();

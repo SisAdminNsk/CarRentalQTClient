@@ -4,6 +4,10 @@
 #include <QPalette>
 #include <QPixmap>
 
+#include "staticuserdata.h"
+#include "API/Endpoints/CarOrders/Requests/getservertimerequest.h"
+#include "ViewModels/MainApplicationViewModels/NestedViewModels/CarItemCard/carreservationform.h"
+
 CarCardViewModel::CarCardViewModel(const CarDTO& carDto, const QSize& cardSize, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CarCardViewModel),
@@ -13,7 +17,7 @@ CarCardViewModel::CarCardViewModel(const CarDTO& carDto, const QSize& cardSize, 
     ui->setupUi(this);
 
     InitializeCarData();
-    setFixedSize(cardSize);
+    Setup();
 }
 
 void CarCardViewModel::InitializeCarData(){
@@ -23,6 +27,43 @@ void CarCardViewModel::InitializeCarData(){
     ui->carPower->setText(QString::fromStdString(std::to_string(carDto.Power)));
     ui->rentalPrice->setText(QString::number(carDto.BaseRentalPricePerHour, 'f', 2));
     ui->carAcseleration->setText(QString::number(carDto.CarAcceleration, 'f', 1));
+}
+
+void CarCardViewModel::Setup(){
+    setFixedSize(cardSize);
+
+    connect(ui->createOrder, &QPushButton::clicked, this, &CarCardViewModel::OnCreateCarOrderClicked);
+}
+
+void CarCardViewModel::OnCreateCarOrderClicked(){
+
+    auto loginCredentials = DataCache::instance().GetUserLoginCredentials();
+
+    int novosibirskUTCOffset = 7;
+
+    auto getServerTimeRequest = new GetServerTimeRequest(loginCredentials.Token, novosibirskUTCOffset);
+
+    connect(getServerTimeRequest, &GetServerTimeRequest::OnSuccessSingal,this, &CarCardViewModel::OnSuccessGettingServerDateTime);
+    connect(getServerTimeRequest, &GetServerTimeRequest::OnFailureSignal, this,&CarCardViewModel::OnFailureGettingsServerDateTime);
+
+    getServerTimeRequest->SendApiRequest();
+}
+
+void CarCardViewModel::OnSuccessGettingServerDateTime(const QDateTime& serverTime){
+
+    auto carReservationForm = new CarReservationForm
+    (
+        carDto,
+        ui->carImage->pixmap(),
+        DataCache::instance().GetCarsharingUserProfile(),
+        serverTime
+    );
+
+    carReservationForm->exec();
+}
+
+void CarCardViewModel::OnFailureGettingsServerDateTime(const QString& errorMessage){
+
 }
 
 void CarCardViewModel::SetImageFromPixmap(const QPixmap& pixmap){

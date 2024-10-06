@@ -125,7 +125,9 @@ void CarsViewModel::OnGettingCarsSuccess(const GetCarsResponse& responseBody){
 
     for(size_t i=0;i<responseBody.Cars.size();i++){
         urls.push_back(responseBody.Cars[i].CarImageURI);
-        carCards.push_back(new CarCardViewModel(responseBody.Cars[i], QSize(cardWidth, cardHeight),this));
+        auto carCardViewModel = new CarCardViewModel(responseBody.Cars[i], QSize(cardWidth, cardHeight),this);
+        carCardViewModel->setVisible(false);
+        carCards.push_back(carCardViewModel);
     }
 
     urlImageLoader->LoadImagesWithOrderSaving(urls, carCards);
@@ -141,6 +143,7 @@ void CarsViewModel::OnGettingCarsFailure(const QString& errorMessage){
 void CarsViewModel::OnAllImagesDownloaded(QList<CarCardViewModel*> carCards){
 
     for(size_t i=0;i<carCards.size();i++){
+        carCards[i]->setVisible(true);
         AddCar(carCards[i]);
     }
 

@@ -1,28 +1,30 @@
-#ifndef CARORDERFORM_H
-#define CARORDERFORM_H
+#ifndef CARRESERVATIONFORM_H
+#define CARRESERVATIONFORM_H
 
-#include <QMainWindow>
+#include <QDialog>
+#include <QLabel>
+
 #include "API/DTO/cardto.h"
 #include "API/DTO/carsharinguserdto.h"
 
 namespace Ui {
-class CarOrderForm;
+class CarReservationForm;
 }
 
-class CarOrderForm : public QMainWindow
+class CarReservationForm : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit CarOrderForm
+    explicit CarReservationForm
     (
         const CarDTO& car,
+        const QPixmap& carImagePixmap,
         const CarsharingUserDTO& carsharingUser,
-        const QDateTime& serverDate,
-        QWidget *parent = nullptr
+        const QDateTime& serverDate,QWidget *parent = nullptr
     );
 
-    ~CarOrderForm();
+    ~CarReservationForm();
 
 private:
     void Setup();
@@ -30,19 +32,21 @@ private:
     void SetupInputWidgets();
     void SetupWindow();
 
+    void FillPersonalData();
+    void FillCarData();
+
     QDateTime serverDateTime;
     CarDTO car;
+    QPixmap carImagePixmap;
     CarsharingUserDTO carsharingUser;
 
-    Ui::CarOrderForm *ui;
-
+    Ui::CarReservationForm *ui;
 private slots:
     void OnStartOfLeaseDateSelected(const QDate& date);
     void OnEndOfLeaseDateSelected(const QDate& date);
 
     void OnStartOfLeaseTimeSelected(const int currentSelectedIndex);
     void OnEndOfLeaseTimeSelected(const int currentSelectedIndex);
-
 };
 
-#endif // CARORDERFORM_H
+#endif // CARRESERVATIONFORM_H
