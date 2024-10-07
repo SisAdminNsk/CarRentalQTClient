@@ -84,6 +84,20 @@ void CarReservationForm::Setup(){
 
 void CarReservationForm::OnStartOfLeaseDateSelected(const QDate& date){
 
+    ui->startLeaseTimePicker->clear();
+
+    if(date == serverDateTime.date()){
+
+        for(size_t i = serverDateTime.time().hour(); i<24; i++){
+            ui->startLeaseTimePicker->addItem(QString::number(i) + ":00");
+        }
+    }
+    else{
+        for(size_t i=0;i<24;i++){
+            ui->startLeaseTimePicker->addItem(QString::number(i) + ":00");
+        }
+    }
+
     ui->endLeaseDatePicker->setMinimumDate(date);
 }
 

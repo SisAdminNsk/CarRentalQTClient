@@ -3,7 +3,7 @@
 #define CARDTO_H
 
 #include <QString>
-#include <QJsonObject>>>
+#include <QJsonObject>
 
 class CarDTO
 {

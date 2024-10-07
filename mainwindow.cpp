@@ -9,12 +9,25 @@
 #include "ViewModels/MainApplicationViewModels/carrentalclientmainwindow.h"
 #include "staticuserdata.h"
 
+#include "API/Endpoints/CarOrders/Requests/createcarorderrequest.h" // удалить после теста
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     Setup();
+
+    CreateCarOrderDTO createCarOrderDTO;
+    createCarOrderDTO.ApproximatePrice = 100;
+    createCarOrderDTO.Comment = "f;ajkgjak";
+    createCarOrderDTO.CarId = "d21a8278-af57-4507-b9d3-75b13a6bdc6c";
+    createCarOrderDTO.CarsharingUserId = "f9c4956a-d8ba-4e57-85b0-3c9963f2c248";
+    createCarOrderDTO.StartOfLease = "2024-10-07T10:11:01.204Z";
+    createCarOrderDTO.EndOfLease = "2024-10-07T10:12:01.204Z";
+
+    auto createCarOrderRequest = new CreateCarOrderRequest("", createCarOrderDTO);
+    createCarOrderRequest->SendApiRequest();
 }
 
 void MainWindow::Setup(){
